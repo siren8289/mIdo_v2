@@ -41,6 +41,8 @@ mIdo_v2/
 │   ├── train/             모델 학습 코드 (ML, DL)
 │   ├── models/            학습된 모델 파일 및 데이터
 │   └── tests/             단위 테스트
+├── notebook/              모델 테스트 및 분석 주피터 노트북
+│   └── model_evaluation.ipynb
 ├── back/                  백엔드 (Spring Boot, Java)
 │   └── src/main/java/com/mido/
 │       ├── scan/          기능 1: 의존성 분석
