@@ -18,7 +18,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder
 
-from src.features import CATEGORY_COLUMNS, NUMBER_COLUMNS
+from src.scoring import CATEGORY_COLUMNS, NUMBER_COLUMNS
 from train.common import MODELS_DIR, build_ml_xy, load_cve_data, save_lookups
 
 

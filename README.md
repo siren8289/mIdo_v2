@@ -28,9 +28,19 @@ mIdo_v2/
 │   ├── raw/               원본 (git 제외)
 │   └── processed/         전처리 결과 CSV
 ├── ai/                    AI 서버 (FastAPI, Python)
+│   ├── src/               기능별 모듈 구조
+│   │   ├── api/           FastAPI 라우터 및 Pydantic 스키마
+│   │   ├── core/          전역 설정 및 경로 상수
+│   │   ├── parser/        의존성 파일 파서 (npm, pypi, gradle, maven)
+│   │   ├── evidence/      보안 위협 근거 수집 (OSV, EPSS, KEV, CWE)
+│   │   ├── scoring/       CVSS 계산 및 ML/DL 피처 엔지니어링
+│   │   ├── inference/     ML 악용 위험 및 DL 심각도 추론
+│   │   ├── llm/           Gemini 기반 조치 가이드 생성
+│   │   ├── service/       분석 파이프라인 및 OWASP 통계 집계
+│   │   └── main.py        FastAPI 진입점
 │   ├── train/             모델 학습 코드 (ML, DL)
-│   ├── models/            학습된 모델 파일
-│   └── src/               서버 코드
+│   ├── models/            학습된 모델 파일 및 데이터
+│   └── tests/             단위 테스트
 ├── back/                  백엔드 (Spring Boot, Java)
 │   └── src/main/java/com/mido/
 │       ├── scan/          기능 1: 의존성 분석
@@ -70,9 +80,9 @@ mIdo_v2/
 
 | 구분 | 하는 일 | 파일 |
 | --- | --- | --- |
-| ML | CVSS·OWASP로 '실제로 악용될 위험' 예측 | `ai/src/ml_model.py`, `ai/train/train_ml.py` |
-| DL | 설명 글만 보고 심각도(LOW~CRITICAL) 추정 | `ai/src/dl_model.py`, `ai/train/train_dl.py` |
-| LLM | Google Gemini로 고칠 순서를 쉬운 한국어로 설명 | `ai/src/llm_explain.py` |
+| ML | CVSS·OWASP로 '실제로 악용될 위험' 예측 | `ai/src/inference/exploit_ml.py`, `ai/train/train_ml.py` |
+| DL | 설명 글만 보고 심각도(LOW~CRITICAL) 추정 | `ai/src/inference/severity_dl.py`, `ai/train/train_dl.py` |
+| LLM | Google Gemini로 고칠 순서를 쉬운 한국어로 설명 | `ai/src/llm/explainer.py` |
 
 ## 실행 방법
 

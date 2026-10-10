@@ -1,6 +1,6 @@
 """사용자가 붙여 넣은 의존성 파일에서 '라이브러리 이름 + 버전'을 뽑는다.
 
-지원하는 파일 4종
+지원하는 파일 4종:
   package.json      (npm)    "lodash": "^4.17.15"
   requirements.txt  (PyPI)   requests==2.19.0
   build.gradle      (Maven)  implementation 'org.apache.logging.log4j:log4j-core:2.14.1'
@@ -11,7 +11,7 @@
 import json
 import re
 
-MAX_DEPENDENCIES = 50  # 너무 많으면 분석이 오래 걸려서 앞에서부터 50개만 본다.
+from src.core.config import MAX_DEPENDENCIES
 
 GRADLE_PATTERN = re.compile(
     r"(?:implementation|api|compileOnly|runtimeOnly|testImplementation)\s*\(?\s*['\"]([^:'\"]+):([^:'\"]+):([^:'\"]+)['\"]"
@@ -23,7 +23,7 @@ MAVEN_PATTERN = re.compile(
 PYPI_PATTERN = re.compile(r"^([A-Za-z0-9_.\-\[\]]+)\s*==\s*([A-Za-z0-9_.\-]+)")
 
 
-def detect_file_type(text):
+def detect_file_type(text: str) -> str:
     """글 모양을 보고 어떤 파일인지 추측한다."""
     stripped = text.strip()
     if stripped.startswith("{"):
@@ -35,13 +35,13 @@ def detect_file_type(text):
     return "requirements.txt"
 
 
-def clean_version(version):
-    """'^4.17.15' → '4.17.15'.  숫자로 시작하지 않으면(예: 'latest', '*') None."""
+def clean_version(version: str):
+    """'^4.17.15' → '4.17.15'. 숫자로 시작하지 않으면(예: 'latest', '*') None."""
     version = version.strip().lstrip("^~=v")
     return version if re.match(r"^\d", version) else None
 
 
-def parse_package_json(text):
+def parse_package_json(text: str):
     try:
         data = json.loads(text)
     except json.JSONDecodeError:
@@ -55,7 +55,7 @@ def parse_package_json(text):
     return result
 
 
-def parse_requirements(text):
+def parse_requirements(text: str):
     result = []
     for line in text.splitlines():
         line = line.split("#")[0].strip()  # 주석 제거
@@ -66,7 +66,7 @@ def parse_requirements(text):
     return result
 
 
-def parse_gradle(text):
+def parse_gradle(text: str):
     result = []
     for group, artifact, version in GRADLE_PATTERN.findall(text):
         version = clean_version(version)
@@ -75,7 +75,7 @@ def parse_gradle(text):
     return result
 
 
-def parse_pom(text):
+def parse_pom(text: str):
     result = []
     for group, artifact, version in MAVEN_PATTERN.findall(text):
         version = clean_version(version)
@@ -93,8 +93,8 @@ PARSERS = {
 }
 
 
-def parse_dependencies(text):
-    """(파일 종류, 의존성 리스트) 를 돌려준다. 같은 라이브러리가 두 번 나오면 하나만 남긴다."""
+def parse_dependencies(text: str):
+    """(파일 종류, 의존성 리스트)를 돌려준다. 같은 라이브러리가 두 번 나오면 하나만 남긴다."""
     file_type = detect_file_type(text)
     unique = {}
     for dependency in PARSERS[file_type](text):
