@@ -1,0 +1,16 @@
+# 로컬 기본값. Docker에서는 compose.yaml의 환경변수가 이 값을 덮어쓴다.
+app:
+  ai:
+    base-url: http://localhost:8000
+  cors:
+    allowed-origins: http://localhost:5173,http://127.0.0.1:5173
+
+spring:
+  datasource:
+    url: jdbc:h2:mem:mido;MODE=PostgreSQL
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false

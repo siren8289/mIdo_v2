@@ -1,0 +1,26 @@
+.DS_Store
+.idea/
+*.iml
+
+# 비밀값 (키는 .env 에만 둔다)
+.env
+*.env.local
+data/.env
+ai/.env
+
+# 파이썬
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# 프론트·백엔드 빌드 결과
+node_modules/
+dist/
+.gradle/
+build/
+bin/
+
+# 공공데이터 원본과 큰 학습표는 git에 올리지 않는다.
+data/raw/
+data/processed/cve_dataset.csv

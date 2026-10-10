@@ -1,0 +1,945 @@
+cwe_id,cwe_name,owasp
+5,J2EE Misconfiguration: Data Transmission Without Encryption,OTHER
+6,J2EE Misconfiguration: Insufficient Session-ID Length,OTHER
+7,J2EE Misconfiguration: Missing Custom Error Page,OTHER
+8,J2EE Misconfiguration: Entity Bean Declared Remote,OTHER
+9,J2EE Misconfiguration: Weak Access Permissions for EJB Methods,OTHER
+11,ASP.NET Misconfiguration: Creating Debug Binary,A02
+12,ASP.NET Misconfiguration: Missing Custom Error Page,OTHER
+13,ASP.NET Misconfiguration: Password in Configuration File,A02
+14,Compiler Removal of Code to Clear Buffers,OTHER
+15,External Control of System or Configuration Setting,A02
+20,Improper Input Validation,A05
+22,Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal'),A01
+23,Relative Path Traversal,A01
+24,Path Traversal: '../filedir',OTHER
+25,Path Traversal: '/../filedir',OTHER
+26,Path Traversal: '/dir/../filename',OTHER
+27,Path Traversal: 'dir/../../filename',OTHER
+28,Path Traversal: '..filedir',OTHER
+29,Path Traversal: '..filename',OTHER
+30,Path Traversal: 'dir..filename',OTHER
+31,Path Traversal: 'dir....filename',OTHER
+32,Path Traversal: '...' (Triple Dot),OTHER
+33,Path Traversal: '....' (Multiple Dot),OTHER
+34,Path Traversal: '....//',OTHER
+35,Path Traversal: '.../...//',A01
+36,Absolute Path Traversal,OTHER
+37,Path Traversal: '/absolute/pathname/here',OTHER
+38,Path Traversal: 'absolutepathnamehere',OTHER
+39,Path Traversal: 'C:dirname',OTHER
+40,Path Traversal: 'UNCsharename' (Windows UNC Share),OTHER
+41,Improper Resolution of Path Equivalence,OTHER
+42,Path Equivalence: 'filename.' (Trailing Dot),OTHER
+43,Path Equivalence: 'filename....' (Multiple Trailing Dot),OTHER
+44,Path Equivalence: 'file.name' (Internal Dot),OTHER
+45,Path Equivalence: 'file...name' (Multiple Internal Dot),OTHER
+46,Path Equivalence: 'filename ' (Trailing Space),OTHER
+47,Path Equivalence: ' filename' (Leading Space),OTHER
+48,Path Equivalence: 'file name' (Internal Whitespace),OTHER
+49,Path Equivalence: 'filename/' (Trailing Slash),OTHER
+50,Path Equivalence: '//multiple/leading/slash',OTHER
+51,Path Equivalence: '/multiple//internal/slash',OTHER
+52,Path Equivalence: '/multiple/trailing/slash//',OTHER
+53,Path Equivalence: 'multipleinternalbackslash',OTHER
+54,Path Equivalence: 'filedir' (Trailing Backslash),OTHER
+55,Path Equivalence: '/./' (Single Dot Directory),OTHER
+56,Path Equivalence: 'filedir*' (Wildcard),OTHER
+57,Path Equivalence: 'fakedir/../realdir/filename',OTHER
+58,Path Equivalence: Windows 8.3 Filename,OTHER
+59,Improper Link Resolution Before File Access ('Link Following'),A01
+61,UNIX Symbolic Link (Symlink) Following,OTHER
+62,UNIX Hard Link,OTHER
+64,Windows Shortcut Following (.LNK),OTHER
+65,Windows Hard Link,OTHER
+66,Improper Handling of File Names that Identify Virtual Resources,OTHER
+67,Improper Handling of Windows Device Names,OTHER
+69,Improper Handling of Windows ::DATA Alternate Data Stream,OTHER
+72,Improper Handling of Apple HFS+ Alternate Data Stream Path,OTHER
+73,External Control of File Name or Path,A06
+74,Improper Neutralization of Special Elements in Output Used by a Downstream Component ('Injection'),A05
+75,Failure to Sanitize Special Elements into a Different Plane (Special Element Injection),A05
+76,Improper Neutralization of Equivalent Special Elements,OTHER
+77,Improper Neutralization of Special Elements used in a Command ('Command Injection'),A05
+78,Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection'),A05
+79,Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting'),A05
+80,Improper Neutralization of Script-Related HTML Tags in a Web Page (Basic XSS),A05
+81,Improper Neutralization of Script in an Error Message Web Page,OTHER
+82,Improper Neutralization of Script in Attributes of IMG Tags in a Web Page,OTHER
+83,Improper Neutralization of Script in Attributes in a Web Page,A05
+84,Improper Neutralization of Encoded URI Schemes in a Web Page,OTHER
+85,Doubled Character XSS Manipulations,OTHER
+86,Improper Neutralization of Invalid Characters in Identifiers in Web Pages,A05
+87,Improper Neutralization of Alternate XSS Syntax,OTHER
+88,Improper Neutralization of Argument Delimiters in a Command ('Argument Injection'),A05
+89,Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection'),A05
+90,Improper Neutralization of Special Elements used in an LDAP Query ('LDAP Injection'),A05
+91,XML Injection (aka Blind XPath Injection),A05
+93,Improper Neutralization of CRLF Sequences ('CRLF Injection'),A05
+94,Improper Control of Generation of Code ('Code Injection'),A05
+95,Improper Neutralization of Directives in Dynamically Evaluated Code ('Eval Injection'),A05
+96,Improper Neutralization of Directives in Statically Saved Code ('Static Code Injection'),A05
+97,Improper Neutralization of Server-Side Includes (SSI) Within a Web Page,A05
+98,Improper Control of Filename for Include/Require Statement in PHP Program ('PHP Remote File Inclusion'),A05
+99,Improper Control of Resource Identifiers ('Resource Injection'),A05
+102,Struts: Duplicate Validation Forms,OTHER
+103,Struts: Incomplete validate() Method Definition,OTHER
+104,Struts: Form Bean Does Not Extend Validation Class,OTHER
+105,Struts: Form Field Without Validator,OTHER
+106,Struts: Plug-in Framework not in Use,OTHER
+107,Struts: Unused Validation Form,OTHER
+108,Struts: Unvalidated Action Form,OTHER
+109,Struts: Validator Turned Off,OTHER
+110,Struts: Validator Without Form Field,OTHER
+111,Direct Use of Unsafe JNI,OTHER
+112,Missing XML Validation,OTHER
+113,Improper Neutralization of CRLF Sequences in HTTP Headers ('HTTP Request/Response Splitting'),A05
+114,Process Control,OTHER
+115,Misinterpretation of Input,OTHER
+116,Improper Encoding or Escaping of Output,A05
+117,Improper Output Neutralization for Logs,A09
+118,Incorrect Access of Indexable Resource ('Range Error'),OTHER
+119,Improper Restriction of Operations within the Bounds of a Memory Buffer,OTHER
+120,Buffer Copy without Checking Size of Input ('Classic Buffer Overflow'),OTHER
+121,Stack-based Buffer Overflow,OTHER
+122,Heap-based Buffer Overflow,OTHER
+123,Write-what-where Condition,OTHER
+124,Buffer Underwrite ('Buffer Underflow'),OTHER
+125,Out-of-bounds Read,OTHER
+126,Buffer Over-read,OTHER
+127,Buffer Under-read,OTHER
+128,Wrap-around Error,OTHER
+129,Improper Validation of Array Index,OTHER
+130,Improper Handling of Length Parameter Inconsistency,OTHER
+131,Incorrect Calculation of Buffer Size,OTHER
+134,Use of Externally-Controlled Format String,OTHER
+135,Incorrect Calculation of Multi-Byte String Length,OTHER
+138,Improper Neutralization of Special Elements,A05
+140,Improper Neutralization of Delimiters,OTHER
+141,Improper Neutralization of Parameter/Argument Delimiters,OTHER
+142,Improper Neutralization of Value Delimiters,OTHER
+143,Improper Neutralization of Record Delimiters,OTHER
+144,Improper Neutralization of Line Delimiters,OTHER
+145,Improper Neutralization of Section Delimiters,OTHER
+146,Improper Neutralization of Expression/Command Delimiters,OTHER
+147,Improper Neutralization of Input Terminators,OTHER
+148,Improper Neutralization of Input Leaders,OTHER
+149,Improper Neutralization of Quoting Syntax,OTHER
+150,"Improper Neutralization of Escape, Meta, or Control Sequences",OTHER
+151,Improper Neutralization of Comment Delimiters,OTHER
+152,Improper Neutralization of Macro Symbols,OTHER
+153,Improper Neutralization of Substitution Characters,OTHER
+154,Improper Neutralization of Variable Name Delimiters,OTHER
+155,Improper Neutralization of Wildcards or Matching Symbols,OTHER
+156,Improper Neutralization of Whitespace,OTHER
+157,Failure to Sanitize Paired Delimiters,OTHER
+158,Improper Neutralization of Null Byte or NUL Character,OTHER
+159,Improper Handling of Invalid Use of Special Elements,OTHER
+160,Improper Neutralization of Leading Special Elements,OTHER
+161,Improper Neutralization of Multiple Leading Special Elements,OTHER
+162,Improper Neutralization of Trailing Special Elements,OTHER
+163,Improper Neutralization of Multiple Trailing Special Elements,OTHER
+164,Improper Neutralization of Internal Special Elements,OTHER
+165,Improper Neutralization of Multiple Internal Special Elements,OTHER
+166,Improper Handling of Missing Special Element,OTHER
+167,Improper Handling of Additional Special Element,OTHER
+168,Improper Handling of Inconsistent Special Elements,OTHER
+170,Improper Null Termination,OTHER
+172,Encoding Error,OTHER
+173,Improper Handling of Alternate Encoding,OTHER
+174,Double Decoding of the Same Data,OTHER
+175,Improper Handling of Mixed Encoding,OTHER
+176,Improper Handling of Unicode Encoding,OTHER
+177,Improper Handling of URL Encoding (Hex Encoding),OTHER
+178,Improper Handling of Case Sensitivity,OTHER
+179,Incorrect Behavior Order: Early Validation,OTHER
+180,Incorrect Behavior Order: Validate Before Canonicalize,OTHER
+181,Incorrect Behavior Order: Validate Before Filter,OTHER
+182,Collapse of Data into Unsafe Value,OTHER
+183,Permissive List of Allowed Inputs,A06
+184,Incomplete List of Disallowed Inputs,A05
+185,Incorrect Regular Expression,OTHER
+186,Overly Restrictive Regular Expression,OTHER
+187,Partial String Comparison,OTHER
+188,Reliance on Data/Memory Layout,OTHER
+190,Integer Overflow or Wraparound,OTHER
+191,Integer Underflow (Wrap or Wraparound),OTHER
+192,Integer Coercion Error,OTHER
+193,Off-by-one Error,OTHER
+194,Unexpected Sign Extension,OTHER
+195,Signed to Unsigned Conversion Error,OTHER
+196,Unsigned to Signed Conversion Error,OTHER
+197,Numeric Truncation Error,OTHER
+198,Use of Incorrect Byte Ordering,OTHER
+200,Exposure of Sensitive Information to an Unauthorized Actor,A01
+201,Insertion of Sensitive Information Into Sent Data,A01
+202,Exposure of Sensitive Information Through Data Queries,OTHER
+203,Observable Discrepancy,OTHER
+204,Observable Response Discrepancy,OTHER
+205,Observable Behavioral Discrepancy,OTHER
+206,Observable Internal Behavioral Discrepancy,OTHER
+207,Observable Behavioral Discrepancy With Equivalent Products,OTHER
+208,Observable Timing Discrepancy,OTHER
+209,Generation of Error Message Containing Sensitive Information,A10
+210,Self-generated Error Message Containing Sensitive Information,OTHER
+211,Externally-Generated Error Message Containing Sensitive Information,OTHER
+212,Improper Removal of Sensitive Information Before Storage or Transfer,OTHER
+213,Exposure of Sensitive Information Due to Incompatible Policies,A06
+214,Invocation of Process Using Visible Sensitive Information,OTHER
+215,Insertion of Sensitive Information Into Debugging Code,OTHER
+219,Storage of File with Sensitive Data Under Web Root,A01
+220,Storage of File With Sensitive Data Under FTP Root,OTHER
+221,Information Loss or Omission,OTHER
+222,Truncation of Security-relevant Information,OTHER
+223,Omission of Security-relevant Information,A09
+224,Obscured Security-relevant Information by Alternate Name,OTHER
+226,Sensitive Information in Resource Not Removed Before Reuse,OTHER
+228,Improper Handling of Syntactically Invalid Structure,OTHER
+229,Improper Handling of Values,OTHER
+230,Improper Handling of Missing Values,OTHER
+231,Improper Handling of Extra Values,OTHER
+232,Improper Handling of Undefined Values,OTHER
+233,Improper Handling of Parameters,OTHER
+234,Failure to Handle Missing Parameter,A10
+235,Improper Handling of Extra Parameters,A06
+236,Improper Handling of Undefined Parameters,OTHER
+237,Improper Handling of Structural Elements,OTHER
+238,Improper Handling of Incomplete Structural Elements,OTHER
+239,Failure to Handle Incomplete Element,OTHER
+240,Improper Handling of Inconsistent Structural Elements,OTHER
+241,Improper Handling of Unexpected Data Type,OTHER
+242,Use of Inherently Dangerous Function,OTHER
+243,Creation of chroot Jail Without Changing Working Directory,OTHER
+244,Improper Clearing of Heap Memory Before Release ('Heap Inspection'),OTHER
+245,J2EE Bad Practices: Direct Management of Connections,OTHER
+246,J2EE Bad Practices: Direct Use of Sockets,OTHER
+248,Uncaught Exception,A10
+250,Execution with Unnecessary Privileges,OTHER
+252,Unchecked Return Value,A10
+253,Incorrect Check of Function Return Value,OTHER
+256,Plaintext Storage of a Password,A06
+257,Storing Passwords in a Recoverable Format,A06
+258,Empty Password in Configuration File,OTHER
+259,Use of Hard-coded Password,A07
+260,Password in Configuration File,A02
+261,Weak Encoding for Password,A04
+262,Not Using Password Aging,OTHER
+263,Password Aging with Long Expiration,OTHER
+266,Incorrect Privilege Assignment,A06
+267,Privilege Defined With Unsafe Actions,OTHER
+268,Privilege Chaining,OTHER
+269,Improper Privilege Management,A06
+270,Privilege Context Switching Error,OTHER
+271,Privilege Dropping / Lowering Errors,OTHER
+272,Least Privilege Violation,OTHER
+273,Improper Check for Dropped Privileges,OTHER
+274,Improper Handling of Insufficient Privileges,A10
+276,Incorrect Default Permissions,A01
+277,Insecure Inherited Permissions,OTHER
+278,Insecure Preserved Inherited Permissions,OTHER
+279,Incorrect Execution-Assigned Permissions,OTHER
+280,Improper Handling of Insufficient Permissions or Privileges,A06
+281,Improper Preservation of Permissions,OTHER
+282,Improper Ownership Management,OTHER
+283,Unverified Ownership,OTHER
+284,Improper Access Control,A01
+285,Improper Authorization,A01
+286,Incorrect User Management,OTHER
+287,Improper Authentication,A07
+288,Authentication Bypass Using an Alternate Path or Channel,A07
+289,Authentication Bypass by Alternate Name,OTHER
+290,Authentication Bypass by Spoofing,A07
+291,Reliance on IP Address for Authentication,OTHER
+293,Using Referer Field for Authentication,OTHER
+294,Authentication Bypass by Capture-replay,A07
+295,Improper Certificate Validation,A07
+296,Improper Following of a Certificate's Chain of Trust,A04
+297,Improper Validation of Certificate with Host Mismatch,A07
+298,Improper Validation of Certificate Expiration,OTHER
+299,Improper Check for Certificate Revocation,OTHER
+300,Channel Accessible by Non-Endpoint,A07
+301,Reflection Attack in an Authentication Protocol,OTHER
+302,Authentication Bypass by Assumed-Immutable Data,A07
+303,Incorrect Implementation of Authentication Algorithm,OTHER
+304,Missing Critical Step in Authentication,A07
+305,Authentication Bypass by Primary Weakness,OTHER
+306,Missing Authentication for Critical Function,A07
+307,Improper Restriction of Excessive Authentication Attempts,A07
+308,Use of Single-factor Authentication,OTHER
+309,Use of Password System for Primary Authentication,OTHER
+311,Missing Encryption of Sensitive Data,A06
+312,Cleartext Storage of Sensitive Information,A06
+313,Cleartext Storage in a File or on Disk,A06
+314,Cleartext Storage in the Registry,OTHER
+315,Cleartext Storage of Sensitive Information in a Cookie,A02
+316,Cleartext Storage of Sensitive Information in Memory,A06
+317,Cleartext Storage of Sensitive Information in GUI,OTHER
+318,Cleartext Storage of Sensitive Information in Executable,OTHER
+319,Cleartext Transmission of Sensitive Information,A04
+321,Use of Hard-coded Cryptographic Key,A04
+322,Key Exchange without Entity Authentication,A04
+323,"Reusing a Nonce, Key Pair in Encryption",A04
+324,Use of a Key Past its Expiration Date,A04
+325,Missing Cryptographic Step,A04
+326,Inadequate Encryption Strength,A04
+327,Use of a Broken or Risky Cryptographic Algorithm,A04
+328,Use of Weak Hash,A04
+329,Generation of Predictable IV with CBC Mode,A04
+330,Use of Insufficiently Random Values,A04
+331,Insufficient Entropy,A04
+332,Insufficient Entropy in PRNG,OTHER
+333,Improper Handling of Insufficient Entropy in TRNG,OTHER
+334,Small Space of Random Values,OTHER
+335,Incorrect Usage of Seeds in Pseudo-Random Number Generator (PRNG),A04
+336,Same Seed in Pseudo-Random Number Generator (PRNG),A04
+337,Predictable Seed in Pseudo-Random Number Generator (PRNG),A04
+338,Use of Cryptographically Weak Pseudo-Random Number Generator (PRNG),A04
+339,Small Seed Space in PRNG,OTHER
+340,Generation of Predictable Numbers or Identifiers,A04
+341,Predictable from Observable State,OTHER
+342,Predictable Exact Value from Previous Values,OTHER
+343,Predictable Value Range from Previous Values,OTHER
+344,Use of Invariant Value in Dynamically Changing Context,OTHER
+345,Insufficient Verification of Data Authenticity,A08
+346,Origin Validation Error,A07
+347,Improper Verification of Cryptographic Signature,A04
+348,Use of Less Trusted Source,OTHER
+349,Acceptance of Extraneous Untrusted Data With Trusted Data,OTHER
+350,Reliance on Reverse DNS Resolution for a Security-Critical Action,OTHER
+351,Insufficient Type Distinction,OTHER
+352,Cross-Site Request Forgery (CSRF),A01
+353,Missing Support for Integrity Check,A08
+354,Improper Validation of Integrity Check Value,OTHER
+356,Product UI does not Warn User of Unsafe Actions,OTHER
+357,Insufficient UI Warning of Dangerous Operations,OTHER
+358,Improperly Implemented Security Check for Standard,OTHER
+359,Exposure of Private Personal Information to an Unauthorized Actor,A01
+360,Trust of System Event Data,OTHER
+362,Concurrent Execution using Shared Resource with Improper Synchronization ('Race Condition'),OTHER
+363,Race Condition Enabling Link Following,OTHER
+364,Signal Handler Race Condition,OTHER
+366,Race Condition within a Thread,OTHER
+367,Time-of-check Time-of-use (TOCTOU) Race Condition,OTHER
+368,Context Switching Race Condition,OTHER
+369,Divide By Zero,A10
+370,Missing Check for Certificate Revocation after Initial Check,OTHER
+372,Incomplete Internal State Distinction,OTHER
+374,Passing Mutable Objects to an Untrusted Method,OTHER
+375,Returning a Mutable Object to an Untrusted Caller,OTHER
+377,Insecure Temporary File,A01
+378,Creation of Temporary File With Insecure Permissions,OTHER
+379,Creation of Temporary File in Directory with Insecure Permissions,OTHER
+382,J2EE Bad Practices: Use of System.exit(),OTHER
+383,J2EE Bad Practices: Direct Use of Threads,OTHER
+384,Session Fixation,A07
+385,Covert Timing Channel,OTHER
+386,Symbolic Name not Mapping to Correct Object,OTHER
+390,Detection of Error Condition Without Action,A10
+391,Unchecked Error Condition,A10
+392,Missing Report of Error Condition,OTHER
+393,Return of Wrong Status Code,OTHER
+394,Unexpected Status Code or Return Value,A10
+395,Use of NullPointerException Catch to Detect NULL Pointer Dereference,OTHER
+396,Declaration of Catch for Generic Exception,OTHER
+397,Declaration of Throws for Generic Exception,OTHER
+400,Uncontrolled Resource Consumption,OTHER
+401,Missing Release of Memory after Effective Lifetime,OTHER
+402,Transmission of Private Resources into a New Sphere ('Resource Leak'),A01
+403,Exposure of File Descriptor to Unintended Control Sphere ('File Descriptor Leak'),OTHER
+404,Improper Resource Shutdown or Release,OTHER
+405,Asymmetric Resource Consumption (Amplification),OTHER
+406,Insufficient Control of Network Message Volume (Network Amplification),OTHER
+407,Inefficient Algorithmic Complexity,OTHER
+408,Incorrect Behavior Order: Early Amplification,OTHER
+409,Improper Handling of Highly Compressed Data (Data Amplification),OTHER
+410,Insufficient Resource Pool,OTHER
+412,Unrestricted Externally Accessible Lock,OTHER
+413,Improper Resource Locking,OTHER
+414,Missing Lock Check,OTHER
+415,Double Free,OTHER
+416,Use After Free,OTHER
+419,Unprotected Primary Channel,A06
+420,Unprotected Alternate Channel,OTHER
+421,Race Condition During Access to Alternate Channel,OTHER
+422,Unprotected Windows Messaging Channel ('Shatter'),OTHER
+424,Improper Protection of Alternate Path,OTHER
+425,Direct Request ('Forced Browsing'),A01
+426,Untrusted Search Path,A08
+427,Uncontrolled Search Path Element,OTHER
+428,Unquoted Search Path or Element,OTHER
+430,Deployment of Wrong Handler,A06
+431,Missing Handler,OTHER
+432,Dangerous Signal Handler not Disabled During Sensitive Operations,OTHER
+433,Unparsed Raw Web Content Delivery,OTHER
+434,Unrestricted Upload of File with Dangerous Type,A06
+435,Improper Interaction Between Multiple Correctly-Behaving Entities,OTHER
+436,Interpretation Conflict,OTHER
+437,Incomplete Model of Endpoint Features,OTHER
+439,Behavioral Change in New Version or Environment,OTHER
+440,Expected Behavior Violation,OTHER
+441,Unintended Proxy or Intermediary ('Confused Deputy'),A01
+444,Inconsistent Interpretation of HTTP Requests ('HTTP Request/Response Smuggling'),A06
+446,UI Discrepancy for Security Feature,OTHER
+447,Unimplemented or Unsupported Feature in UI,A03
+448,Obsolete Feature in UI,OTHER
+449,The UI Performs the Wrong Action,OTHER
+450,Multiple Interpretations of UI Input,OTHER
+451,User Interface (UI) Misrepresentation of Critical Information,A06
+453,Insecure Default Variable Initialization,OTHER
+454,External Initialization of Trusted Variables or Data Stores,OTHER
+455,Non-exit on Failed Initialization,OTHER
+456,Missing Initialization of a Variable,OTHER
+457,Use of Uninitialized Variable,OTHER
+459,Incomplete Cleanup,OTHER
+460,Improper Cleanup on Thrown Exception,OTHER
+462,Duplicate Key in Associative List (Alist),OTHER
+463,Deletion of Data Structure Sentinel,OTHER
+464,Addition of Data Structure Sentinel,OTHER
+466,Return of Pointer Value Outside of Expected Range,OTHER
+467,Use of sizeof() on a Pointer Type,OTHER
+468,Incorrect Pointer Scaling,OTHER
+469,Use of Pointer Subtraction to Determine Size,OTHER
+470,Use of Externally-Controlled Input to Select Classes or Code ('Unsafe Reflection'),A05
+471,Modification of Assumed-Immutable Data (MAID),A05
+472,External Control of Assumed-Immutable Web Parameter,A06
+473,PHP External Variable Modification,OTHER
+474,Use of Function with Inconsistent Implementations,OTHER
+475,Undefined Behavior for Input to API,OTHER
+476,NULL Pointer Dereference,A10
+477,Use of Obsolete Function,OTHER
+478,Missing Default Case in Multiple Condition Expression,OTHER
+479,Signal Handler Use of a Non-reentrant Function,OTHER
+480,Use of Incorrect Operator,OTHER
+481,Assigning instead of Comparing,OTHER
+482,Comparing instead of Assigning,OTHER
+483,Incorrect Block Delimitation,OTHER
+484,Omitted Break Statement in Switch,OTHER
+486,Comparison of Classes by Name,OTHER
+487,Reliance on Package-level Scope,OTHER
+488,Exposure of Data Element to Wrong Session,OTHER
+489,Active Debug Code,A02
+491,Public cloneable() Method Without Final ('Object Hijack'),OTHER
+492,Use of Inner Class Containing Sensitive Data,OTHER
+493,Critical Public Variable Without Final Modifier,OTHER
+494,Download of Code Without Integrity Check,A08
+495,Private Data Structure Returned From A Public Method,OTHER
+496,Public Data Assigned to Private Array-Typed Field,OTHER
+497,Exposure of Sensitive System Information to an Unauthorized Control Sphere,A01
+498,Cloneable Class Containing Sensitive Information,OTHER
+499,Serializable Class Containing Sensitive Data,OTHER
+500,Public Static Field Not Marked Final,OTHER
+501,Trust Boundary Violation,A06
+502,Deserialization of Untrusted Data,A08
+506,Embedded Malicious Code,OTHER
+507,Trojan Horse,OTHER
+508,Non-Replicating Malicious Code,OTHER
+509,Replicating Malicious Code (Virus or Worm),OTHER
+510,Trapdoor,OTHER
+511,Logic/Time Bomb,OTHER
+512,Spyware,OTHER
+514,Covert Channel,OTHER
+515,Covert Storage Channel,OTHER
+520,.NET Misconfiguration: Use of Impersonation,A02
+521,Weak Password Requirements,A07
+522,Insufficiently Protected Credentials,A06
+523,Unprotected Transport of Credentials,A04
+524,Use of Cache Containing Sensitive Information,OTHER
+525,Use of Web Browser Cache Containing Sensitive Information,A06
+526,Cleartext Storage of Sensitive Information in an Environment Variable,A02
+527,Exposure of Version-Control Repository to an Unauthorized Control Sphere,OTHER
+528,Exposure of Core Dump File to an Unauthorized Control Sphere,OTHER
+529,Exposure of Access Control List Files to an Unauthorized Control Sphere,OTHER
+530,Exposure of Backup File to an Unauthorized Control Sphere,OTHER
+531,Inclusion of Sensitive Information in Test Code,OTHER
+532,Insertion of Sensitive Information into Log File,A09
+535,Exposure of Information Through Shell Error Message,OTHER
+536,Servlet Runtime Error Message Containing Sensitive Information,OTHER
+537,Java Runtime Error Message Containing Sensitive Information,OTHER
+538,Insertion of Sensitive Information into Externally-Accessible File or Directory,A01
+539,Use of Persistent Cookies Containing Sensitive Information,A06
+540,Inclusion of Sensitive Information in Source Code,A01
+541,Inclusion of Sensitive Information in an Include File,OTHER
+543,Use of Singleton Pattern Without Synchronization in a Multithreaded Context,OTHER
+544,Missing Standardized Error Handling Mechanism,OTHER
+546,Suspicious Comment,OTHER
+547,"Use of Hard-coded, Security-relevant Constants",A02
+548,Exposure of Information Through Directory Listing,A01
+549,Missing Password Field Masking,OTHER
+550,Server-generated Error Message Containing Sensitive Information,OTHER
+551,Incorrect Behavior Order: Authorization Before Parsing and Canonicalization,OTHER
+552,Files or Directories Accessible to External Parties,A01
+553,Command Shell in Externally Accessible Directory,OTHER
+554,ASP.NET Misconfiguration: Not Using Input Validation Framework,OTHER
+555,J2EE Misconfiguration: Plaintext Password in Configuration File,OTHER
+556,ASP.NET Misconfiguration: Use of Identity Impersonation,OTHER
+558,Use of getlogin() in Multithreaded Application,OTHER
+560,Use of umask() with chmod-style Argument,OTHER
+561,Dead Code,OTHER
+562,Return of Stack Variable Address,OTHER
+563,Assignment to Variable without Use,OTHER
+564,SQL Injection: Hibernate,A05
+565,Reliance on Cookies without Validation and Integrity Checking,A08
+566,Authorization Bypass Through User-Controlled SQL Primary Key,A01
+567,Unsynchronized Access to Shared Data in a Multithreaded Context,OTHER
+568,finalize() Method Without super.finalize(),OTHER
+570,Expression is Always False,OTHER
+571,Expression is Always True,OTHER
+572,Call to Thread run() instead of start(),OTHER
+573,Improper Following of Specification by Caller,OTHER
+574,EJB Bad Practices: Use of Synchronization Primitives,OTHER
+575,EJB Bad Practices: Use of AWT Swing,OTHER
+576,EJB Bad Practices: Use of Java I/O,OTHER
+577,EJB Bad Practices: Use of Sockets,OTHER
+578,EJB Bad Practices: Use of Class Loader,OTHER
+579,J2EE Bad Practices: Non-serializable Object Stored in Session,A06
+580,clone() Method Without super.clone(),OTHER
+581,Object Model Violation: Just One of Equals and Hashcode Defined,OTHER
+582,"Array Declared Public, Final, and Static",OTHER
+583,finalize() Method Declared Public,OTHER
+584,Return Inside Finally Block,OTHER
+585,Empty Synchronized Block,OTHER
+586,Explicit Call to Finalize(),OTHER
+587,Assignment of a Fixed Address to a Pointer,OTHER
+588,Attempt to Access Child of a Non-structure Pointer,OTHER
+589,Call to Non-ubiquitous API,OTHER
+590,Free of Memory not on the Heap,OTHER
+591,Sensitive Data Storage in Improperly Locked Memory,OTHER
+593,Authentication Bypass: OpenSSL CTX Object Modified after SSL Objects are Created,OTHER
+594,J2EE Framework: Saving Unserializable Objects to Disk,OTHER
+595,Comparison of Object References Instead of Object Contents,OTHER
+597,Use of Wrong Operator in String Comparison,OTHER
+598,Use of HTTP Request With Sensitive Query String,A06
+599,Missing Validation of OpenSSL Certificate,OTHER
+600,Uncaught Exception in Servlet,OTHER
+601,URL Redirection to Untrusted Site ('Open Redirect'),A01
+602,Client-Side Enforcement of Server-Side Security,A06
+603,Use of Client-Side Authentication,OTHER
+605,Multiple Binds to the Same Port,OTHER
+606,Unchecked Input for Loop Condition,OTHER
+607,Public Static Final Field References Mutable Object,OTHER
+608,Struts: Non-private Field in ActionForm Class,OTHER
+609,Double-Checked Locking,OTHER
+610,Externally Controlled Reference to a Resource in Another Sphere,A05
+611,Improper Restriction of XML External Entity Reference,A02
+612,Improper Authorization of Index Containing Sensitive Information,OTHER
+613,Insufficient Session Expiration,A07
+614,Sensitive Cookie in HTTPS Session Without 'Secure' Attribute,A02
+615,Inclusion of Sensitive Information in Source Code Comments,OTHER
+616,Incomplete Identification of Uploaded File Variables (PHP),OTHER
+617,Reachable Assertion,OTHER
+618,Exposed Unsafe ActiveX Method,OTHER
+619,Dangling Database Cursor ('Cursor Injection'),OTHER
+620,Unverified Password Change,A07
+621,Variable Extraction Error,OTHER
+622,Improper Validation of Function Hook Arguments,OTHER
+623,Unsafe ActiveX Control Marked Safe For Scripting,OTHER
+624,Executable Regular Expression Error,OTHER
+625,Permissive Regular Expression,OTHER
+626,Null Byte Interaction Error (Poison Null Byte),OTHER
+627,Dynamic Variable Evaluation,OTHER
+628,Function Call with Incorrectly Specified Arguments,OTHER
+636,Not Failing Securely ('Failing Open'),A10
+637,Unnecessary Complexity in Protection Mechanism (Not Using 'Economy of Mechanism'),OTHER
+638,Not Using Complete Mediation,OTHER
+639,Authorization Bypass Through User-Controlled Key,A01
+640,Weak Password Recovery Mechanism for Forgotten Password,A07
+641,Improper Restriction of Names for Files and Other Resources,OTHER
+642,External Control of Critical State Data,A06
+643,Improper Neutralization of Data within XPath Expressions ('XPath Injection'),A05
+644,Improper Neutralization of HTTP Headers for Scripting Syntax,A05
+645,Overly Restrictive Account Lockout Mechanism,OTHER
+646,Reliance on File Name or Extension of Externally-Supplied File,A06
+647,Use of Non-Canonical URL Paths for Authorization Decisions,OTHER
+648,Incorrect Use of Privileged APIs,OTHER
+649,Reliance on Obfuscation or Encryption of Security-Relevant Inputs without Integrity Checking,OTHER
+650,Trusting HTTP Permission Methods on the Server Side,A06
+651,Exposure of WSDL File Containing Sensitive Information,A01
+652,Improper Neutralization of Data within XQuery Expressions ('XQuery Injection'),A05
+653,Improper Isolation or Compartmentalization,A06
+654,Reliance on a Single Factor in a Security Decision,OTHER
+655,Insufficient Psychological Acceptability,OTHER
+656,Reliance on Security Through Obscurity,A06
+657,Violation of Secure Design Principles,A06
+662,Improper Synchronization,OTHER
+663,Use of a Non-reentrant Function in a Concurrent Context,OTHER
+664,Improper Control of a Resource Through its Lifetime,OTHER
+665,Improper Initialization,OTHER
+666,Operation on Resource in Wrong Phase of Lifetime,OTHER
+667,Improper Locking,OTHER
+668,Exposure of Resource to Wrong Sphere,A01
+669,Incorrect Resource Transfer Between Spheres,OTHER
+670,Always-Incorrect Control Flow Implementation,OTHER
+671,Lack of Administrator Control over Security,OTHER
+672,Operation on a Resource after Expiration or Release,OTHER
+673,External Influence of Sphere Definition,OTHER
+674,Uncontrolled Recursion,OTHER
+675,Multiple Operations on Resource in Single-Operation Context,OTHER
+676,Use of Potentially Dangerous Function,OTHER
+680,Integer Overflow to Buffer Overflow,OTHER
+681,Incorrect Conversion between Numeric Types,OTHER
+682,Incorrect Calculation,OTHER
+683,Function Call With Incorrect Order of Arguments,OTHER
+684,Incorrect Provision of Specified Functionality,OTHER
+685,Function Call With Incorrect Number of Arguments,OTHER
+686,Function Call With Incorrect Argument Type,OTHER
+687,Function Call With Incorrectly Specified Argument Value,OTHER
+688,Function Call With Incorrect Variable or Reference as Argument,OTHER
+689,Permission Race Condition During Resource Copy,OTHER
+690,Unchecked Return Value to NULL Pointer Dereference,OTHER
+691,Insufficient Control Flow Management,OTHER
+692,Incomplete Denylist to Cross-Site Scripting,OTHER
+693,Protection Mechanism Failure,OTHER
+694,Use of Multiple Resources with Duplicate Identifier,OTHER
+695,Use of Low-Level Functionality,OTHER
+696,Incorrect Behavior Order,OTHER
+697,Incorrect Comparison,OTHER
+698,Execution After Redirect (EAR),OTHER
+703,Improper Check or Handling of Exceptional Conditions,A10
+704,Incorrect Type Conversion or Cast,OTHER
+705,Incorrect Control Flow Scoping,OTHER
+706,Use of Incorrectly-Resolved Name or Reference,A01
+707,Improper Neutralization,OTHER
+708,Incorrect Ownership Assignment,OTHER
+710,Improper Adherence to Coding Standards,OTHER
+732,Incorrect Permission Assignment for Critical Resource,OTHER
+733,Compiler Optimization Removal or Modification of Security-critical Code,OTHER
+749,Exposed Dangerous Method or Function,OTHER
+754,Improper Check for Unusual or Exceptional Conditions,A10
+755,Improper Handling of Exceptional Conditions,A10
+756,Missing Custom Error Page,A02
+757,Selection of Less-Secure Algorithm During Negotiation ('Algorithm Downgrade'),A04
+758,"Reliance on Undefined, Unspecified, or Implementation-Defined Behavior",OTHER
+759,Use of a One-Way Hash without a Salt,A04
+760,Use of a One-Way Hash with a Predictable Salt,A04
+761,Free of Pointer not at Start of Buffer,OTHER
+762,Mismatched Memory Management Routines,OTHER
+763,Release of Invalid Pointer or Reference,OTHER
+764,Multiple Locks of a Critical Resource,OTHER
+765,Multiple Unlocks of a Critical Resource,OTHER
+766,Critical Data Element Declared Public,OTHER
+767,Access to Critical Private Variable via Public Method,OTHER
+768,Incorrect Short Circuit Evaluation,OTHER
+770,Allocation of Resources Without Limits or Throttling,OTHER
+771,Missing Reference to Active Allocated Resource,OTHER
+772,Missing Release of Resource after Effective Lifetime,OTHER
+773,Missing Reference to Active File Descriptor or Handle,OTHER
+774,Allocation of File Descriptors or Handles Without Limits or Throttling,OTHER
+775,Missing Release of File Descriptor or Handle after Effective Lifetime,OTHER
+776,Improper Restriction of Recursive Entity References in DTDs ('XML Entity Expansion'),A02
+777,Regular Expression without Anchors,OTHER
+778,Insufficient Logging,A09
+779,Logging of Excessive Data,OTHER
+780,Use of RSA Algorithm without OAEP,A04
+781,Improper Address Validation in IOCTL with METHOD_NEITHER I/O Control Code,OTHER
+782,Exposed IOCTL with Insufficient Access Control,OTHER
+783,Operator Precedence Logic Error,OTHER
+784,Reliance on Cookies without Validation and Integrity Checking in a Security Decision,A08
+785,Use of Path Manipulation Function without Maximum-sized Buffer,OTHER
+786,Access of Memory Location Before Start of Buffer,OTHER
+787,Out-of-bounds Write,OTHER
+788,Access of Memory Location After End of Buffer,OTHER
+789,Memory Allocation with Excessive Size Value,OTHER
+790,Improper Filtering of Special Elements,OTHER
+791,Incomplete Filtering of Special Elements,OTHER
+792,Incomplete Filtering of One or More Instances of Special Elements,OTHER
+793,Only Filtering One Instance of a Special Element,OTHER
+794,Incomplete Filtering of Multiple Instances of Special Elements,OTHER
+795,Only Filtering Special Elements at a Specified Location,OTHER
+796,Only Filtering Special Elements Relative to a Marker,OTHER
+797,Only Filtering Special Elements at an Absolute Position,OTHER
+798,Use of Hard-coded Credentials,A07
+799,Improper Control of Interaction Frequency,A06
+804,Guessable CAPTCHA,OTHER
+805,Buffer Access with Incorrect Length Value,OTHER
+806,Buffer Access Using Size of Source Buffer,OTHER
+807,Reliance on Untrusted Inputs in a Security Decision,A06
+820,Missing Synchronization,OTHER
+821,Incorrect Synchronization,OTHER
+822,Untrusted Pointer Dereference,OTHER
+823,Use of Out-of-range Pointer Offset,OTHER
+824,Access of Uninitialized Pointer,OTHER
+825,Expired Pointer Dereference,OTHER
+826,Premature Release of Resource During Expected Lifetime,OTHER
+827,Improper Control of Document Type Definition,OTHER
+828,Signal Handler with Functionality that is not Asynchronous-Safe,OTHER
+829,Inclusion of Functionality from Untrusted Control Sphere,A08
+830,Inclusion of Web Functionality from an Untrusted Source,A08
+831,Signal Handler Function Associated with Multiple Signals,OTHER
+832,Unlock of a Resource that is not Locked,OTHER
+833,Deadlock,OTHER
+834,Excessive Iteration,OTHER
+835,Loop with Unreachable Exit Condition ('Infinite Loop'),OTHER
+836,Use of Password Hash Instead of Password for Authentication,OTHER
+837,"Improper Enforcement of a Single, Unique Action",OTHER
+838,Inappropriate Encoding for Output Context,OTHER
+839,Numeric Range Comparison Without Minimum Check,OTHER
+841,Improper Enforcement of Behavioral Workflow,A06
+842,Placement of User into Incorrect Group,OTHER
+843,Access of Resource Using Incompatible Type ('Type Confusion'),OTHER
+862,Missing Authorization,A01
+863,Incorrect Authorization,A01
+908,Use of Uninitialized Resource,OTHER
+909,Missing Initialization of Resource,OTHER
+910,Use of Expired File Descriptor,OTHER
+911,Improper Update of Reference Count,OTHER
+912,Hidden Functionality,OTHER
+913,Improper Control of Dynamically-Managed Code Resources,A01
+914,Improper Control of Dynamically-Identified Variables,OTHER
+915,Improperly Controlled Modification of Dynamically-Determined Object Attributes,A08
+916,Use of Password Hash With Insufficient Computational Effort,A04
+917,Improper Neutralization of Special Elements used in an Expression Language Statement ('Expression Language Injection'),A05
+918,Server-Side Request Forgery (SSRF),A01
+920,Improper Restriction of Power Consumption,OTHER
+921,Storage of Sensitive Data in a Mechanism without Access Control,OTHER
+922,Insecure Storage of Sensitive Information,A01
+923,Improper Restriction of Communication Channel to Intended Endpoints,OTHER
+924,Improper Enforcement of Message Integrity During Transmission in a Communication Channel,OTHER
+925,Improper Verification of Intent by Broadcast Receiver,OTHER
+926,Improper Export of Android Application Components,OTHER
+927,Use of Implicit Intent for Sensitive Communication,A06
+939,Improper Authorization in Handler for Custom URL Scheme,OTHER
+940,Improper Verification of Source of a Communication Channel,A07
+941,Incorrectly Specified Destination in a Communication Channel,OTHER
+942,Permissive Cross-domain Security Policy with Untrusted Domains,A02
+943,Improper Neutralization of Special Elements in Data Query Logic,OTHER
+1004,Sensitive Cookie Without 'HttpOnly' Flag,A02
+1007,Insufficient Visual Distinction of Homoglyphs Presented to User,OTHER
+1021,Improper Restriction of Rendered UI Layers or Frames,A06
+1022,Use of Web Link to Untrusted Target with window.opener Access,OTHER
+1023,Incomplete Comparison with Missing Factors,OTHER
+1024,Comparison of Incompatible Types,OTHER
+1025,Comparison Using Wrong Factors,OTHER
+1037,Processor Optimization Removal or Modification of Security-critical Code,OTHER
+1038,Insecure Automated Optimizations,OTHER
+1039,Inadequate Detection or Handling of Adversarial Input Perturbations in Automated Recognition Mechanism,OTHER
+1041,Use of Redundant Code,OTHER
+1042,Static Member Data Element outside of a Singleton Class Element,OTHER
+1043,Data Element Aggregating an Excessively Large Number of Non-Primitive Elements,OTHER
+1044,Architecture with Number of Horizontal Layers Outside of Expected Range,OTHER
+1045,Parent Class with a Virtual Destructor and a Child Class without a Virtual Destructor,OTHER
+1046,Creation of Immutable Text Using String Concatenation,OTHER
+1047,Modules with Circular Dependencies,OTHER
+1048,Invokable Control Element with Large Number of Outward Calls,OTHER
+1049,Excessive Data Query Operations in a Large Data Table,OTHER
+1050,Excessive Platform Resource Consumption within a Loop,OTHER
+1051,Initialization with Hard-Coded Network Resource Configuration Data,OTHER
+1052,Excessive Use of Hard-Coded Literals in Initialization,OTHER
+1053,Missing Documentation for Design,OTHER
+1054,Invocation of a Control Element at an Unnecessarily Deep Horizontal Layer,OTHER
+1055,Multiple Inheritance from Concrete Classes,OTHER
+1056,Invokable Control Element with Variadic Parameters,OTHER
+1057,Data Access Operations Outside of Expected Data Manager Component,OTHER
+1058,Invokable Control Element in Multi-Thread Context with non-Final Static Storable or Member Element,OTHER
+1059,Insufficient Technical Documentation,OTHER
+1060,Excessive Number of Inefficient Server-Side Data Accesses,OTHER
+1061,Insufficient Encapsulation,OTHER
+1062,Parent Class with References to Child Class,OTHER
+1063,Creation of Class Instance within a Static Code Block,OTHER
+1064,Invokable Control Element with Signature Containing an Excessive Number of Parameters,OTHER
+1065,Runtime Resource Management Control Element in a Component Built to Run on Application Servers,OTHER
+1066,Missing Serialization Control Element,OTHER
+1067,Excessive Execution of Sequential Searches of Data Resource,OTHER
+1068,Inconsistency Between Implementation and Documented Design,OTHER
+1069,Empty Exception Block,OTHER
+1070,Serializable Data Element Containing non-Serializable Item Elements,OTHER
+1071,Empty Code Block,OTHER
+1072,Data Resource Access without Use of Connection Pooling,OTHER
+1073,Non-SQL Invokable Control Element with Excessive Number of Data Resource Accesses,OTHER
+1074,Class with Excessively Deep Inheritance,OTHER
+1075,Unconditional Control Flow Transfer outside of Switch Block,OTHER
+1076,Insufficient Adherence to Expected Conventions,OTHER
+1077,Floating Point Comparison with Incorrect Operator,OTHER
+1078,Inappropriate Source Code Style or Formatting,OTHER
+1079,Parent Class without Virtual Destructor Method,OTHER
+1080,Source Code File with Excessive Number of Lines of Code,OTHER
+1082,Class Instance Self Destruction Control Element,OTHER
+1083,Data Access from Outside Expected Data Manager Component,OTHER
+1084,Invokable Control Element with Excessive File or Data Access Operations,OTHER
+1085,Invokable Control Element with Excessive Volume of Commented-out Code,OTHER
+1086,Class with Excessive Number of Child Classes,OTHER
+1087,Class with Virtual Method without a Virtual Destructor,OTHER
+1088,Synchronous Access of Remote Resource without Timeout,OTHER
+1089,Large Data Table with Excessive Number of Indices,OTHER
+1090,Method Containing Access of a Member Element from Another Class,OTHER
+1091,Use of Object without Invoking Destructor Method,OTHER
+1092,Use of Same Invokable Control Element in Multiple Architectural Layers,OTHER
+1093,Excessively Complex Data Representation,OTHER
+1094,Excessive Index Range Scan for a Data Resource,OTHER
+1095,Loop Condition Value Update within the Loop,OTHER
+1096,Singleton Class Instance Creation without Proper Locking or Synchronization,OTHER
+1097,Persistent Storable Data Element without Associated Comparison Control Element,OTHER
+1098,Data Element containing Pointer Item without Proper Copy Control Element,OTHER
+1099,Inconsistent Naming Conventions for Identifiers,OTHER
+1100,Insufficient Isolation of System-Dependent Functions,OTHER
+1101,Reliance on Runtime Component in Generated Code,OTHER
+1102,Reliance on Machine-Dependent Data Representation,OTHER
+1103,Use of Platform-Dependent Third Party Components,OTHER
+1104,Use of Unmaintained Third Party Components,A03
+1105,Insufficient Encapsulation of Machine-Dependent Functionality,OTHER
+1106,Insufficient Use of Symbolic Constants,OTHER
+1107,Insufficient Isolation of Symbolic Constant Definitions,OTHER
+1108,Excessive Reliance on Global Variables,OTHER
+1109,Use of Same Variable for Multiple Purposes,OTHER
+1110,Incomplete Design Documentation,OTHER
+1111,Incomplete I/O Documentation,OTHER
+1112,Incomplete Documentation of Program Execution,OTHER
+1113,Inappropriate Comment Style,OTHER
+1114,Inappropriate Whitespace Style,OTHER
+1115,Source Code Element without Standard Prologue,OTHER
+1116,Inaccurate Source Code Comments,OTHER
+1117,Callable with Insufficient Behavioral Summary,OTHER
+1118,Insufficient Documentation of Error Handling Techniques,OTHER
+1119,Excessive Use of Unconditional Branching,OTHER
+1120,Excessive Code Complexity,OTHER
+1121,Excessive McCabe Cyclomatic Complexity,OTHER
+1122,Excessive Halstead Complexity,OTHER
+1123,Excessive Use of Self-Modifying Code,OTHER
+1124,Excessively Deep Nesting,OTHER
+1125,Excessive Attack Surface,OTHER
+1126,Declaration of Variable with Unnecessarily Wide Scope,OTHER
+1127,Compilation with Insufficient Warnings or Errors,OTHER
+1164,Irrelevant Code,OTHER
+1173,Improper Use of Validation Framework,A06
+1174,ASP.NET Misconfiguration: Improper Model Validation,A02
+1176,Inefficient CPU Computation,OTHER
+1177,Use of Prohibited Code,OTHER
+1188,Initialization of a Resource with an Insecure Default,OTHER
+1189,Improper Isolation of Shared Resources on System-on-a-Chip (SoC),OTHER
+1190,DMA Device Enabled Too Early in Boot Phase,OTHER
+1191,On-Chip Debug and Test Interface With Improper Access Control,OTHER
+1192,Improper Identifier for IP Block used in System-On-Chip (SOC),OTHER
+1193,Power-On of Untrusted Execution Core Before Enabling Fabric Access Control,OTHER
+1204,Generation of Weak Initialization Vector (IV),OTHER
+1209,Failure to Disable Reserved Bits,OTHER
+1220,Insufficient Granularity of Access Control,OTHER
+1221,Incorrect Register Defaults or Module Parameters,OTHER
+1222,Insufficient Granularity of Address Regions Protected by Register Locks,OTHER
+1223,Race Condition for Write-Once Attributes,OTHER
+1224,Improper Restriction of Write-Once Bit Fields,OTHER
+1229,Creation of Emergent Resource,OTHER
+1230,Exposure of Sensitive Information Through Metadata,OTHER
+1231,Improper Prevention of Lock Bit Modification,OTHER
+1232,Improper Lock Behavior After Power State Transition,OTHER
+1233,Security-Sensitive Hardware Controls with Missing Lock Bit Protection,OTHER
+1234,Hardware Internal or Debug Modes Allow Override of Locks,OTHER
+1235,Incorrect Use of Autoboxing and Unboxing for Performance Critical Operations,OTHER
+1236,Improper Neutralization of Formula Elements in a CSV File,OTHER
+1239,Improper Zeroization of Hardware Register,OTHER
+1240,Use of a Cryptographic Primitive with a Risky Implementation,OTHER
+1241,Use of Predictable Algorithm in Random Number Generator,OTHER
+1242,Inclusion of Undocumented Features or Chicken Bits,OTHER
+1243,Sensitive Non-Volatile Information Not Protected During Debug,OTHER
+1244,Internal Asset Exposed to Unsafe Debug Access Level or State,OTHER
+1245,Improper Finite State Machines (FSMs) in Hardware Logic,OTHER
+1246,Improper Write Handling in Limited-write Non-Volatile Memories,OTHER
+1247,Improper Protection Against Voltage and Clock Glitches,OTHER
+1248,Semiconductor Defects in Hardware Logic with Security-Sensitive Implications,OTHER
+1249,Application-Level Admin Tool with Inconsistent View of Underlying Operating System,OTHER
+1250,Improper Preservation of Consistency Between Independent Representations of Shared State,OTHER
+1251,Mirrored Regions with Different Values,OTHER
+1252,CPU Hardware Not Configured to Support Exclusivity of Write and Execute Operations,OTHER
+1253,Incorrect Selection of Fuse Values,OTHER
+1254,Incorrect Comparison Logic Granularity,OTHER
+1255,Comparison Logic is Vulnerable to Power Side-Channel Attacks,OTHER
+1256,Improper Restriction of Software Interfaces to Hardware Features,OTHER
+1257,Improper Access Control Applied to Mirrored or Aliased Memory Regions,OTHER
+1258,Exposure of Sensitive System Information Due to Uncleared Debug Information,OTHER
+1259,Improper Restriction of Security Token Assignment,OTHER
+1260,Improper Handling of Overlap Between Protected Memory Ranges,OTHER
+1261,Improper Handling of Single Event Upsets,OTHER
+1262,Improper Access Control for Register Interface,OTHER
+1263,Improper Physical Access Control,OTHER
+1264,Hardware Logic with Insecure De-Synchronization between Control and Data Channels,OTHER
+1265,Unintended Reentrant Invocation of Non-reentrant Code Via Nested Calls,OTHER
+1266,Improper Scrubbing of Sensitive Data from Decommissioned Device,OTHER
+1267,Policy Uses Obsolete Encoding,OTHER
+1268,Policy Privileges are not Assigned Consistently Between Control and Data Agents,OTHER
+1269,Product Released in Non-Release Configuration,OTHER
+1270,Generation of Incorrect Security Tokens,OTHER
+1271,Uninitialized Value on Reset for Registers Holding Security Settings,OTHER
+1272,Sensitive Information Uncleared Before Debug/Power State Transition,OTHER
+1273,Device Unlock Credential Sharing,OTHER
+1274,Improper Access Control for Volatile Memory Containing Boot Code,OTHER
+1275,Sensitive Cookie with Improper SameSite Attribute,A01
+1276,Hardware Child Block Incorrectly Connected to Parent System,OTHER
+1277,Firmware Not Updateable,OTHER
+1278,Missing Protection Against Hardware Reverse Engineering Using Integrated Circuit (IC) Imaging Techniques,OTHER
+1279,Cryptographic Operations are run Before Supporting Units are Ready,OTHER
+1280,Access Control Check Implemented After Asset is Accessed,OTHER
+1281,Sequence of Processor Instructions Leads to Unexpected Behavior,OTHER
+1282,Assumed-Immutable Data is Stored in Writable Memory,OTHER
+1283,Mutable Attestation or Measurement Reporting Data,OTHER
+1284,Improper Validation of Specified Quantity in Input,OTHER
+1285,"Improper Validation of Specified Index, Position, or Offset in Input",OTHER
+1286,Improper Validation of Syntactic Correctness of Input,OTHER
+1287,Improper Validation of Specified Type of Input,OTHER
+1288,Improper Validation of Consistency within Input,OTHER
+1289,Improper Validation of Unsafe Equivalence in Input,OTHER
+1290,Incorrect Decoding of Security Identifiers,OTHER
+1291,Public Key Re-Use for Signing both Debug and Production Code,OTHER
+1292,Incorrect Conversion of Security Identifiers,OTHER
+1293,Missing Source Correlation of Multiple Independent Data,OTHER
+1294,Insecure Security Identifier Mechanism,OTHER
+1295,Debug Messages Revealing Unnecessary Information,OTHER
+1296,Incorrect Chaining or Granularity of Debug Components,OTHER
+1297,Unprotected Confidential Information on Device is Accessible by OSAT Vendors,OTHER
+1298,Hardware Logic Contains Race Conditions,OTHER
+1299,Missing Protection Mechanism for Alternate Hardware Interface,OTHER
+1300,Improper Protection of Physical Side Channels,OTHER
+1301,Insufficient or Incomplete Data Removal within Hardware Component,OTHER
+1302,Missing Source Identifier in Entity Transactions on a System-On-Chip (SOC),OTHER
+1303,Non-Transparent Sharing of Microarchitectural Resources,OTHER
+1304,Improperly Preserved Integrity of Hardware Configuration State During a Power Save/Restore Operation,OTHER
+1310,Missing Ability to Patch ROM Code,OTHER
+1311,Improper Translation of Security Attributes by Fabric Bridge,OTHER
+1312,Missing Protection for Mirrored Regions in On-Chip Fabric Firewall,OTHER
+1313,Hardware Allows Activation of Test or Debug Logic at Runtime,OTHER
+1314,Missing Write Protection for Parametric Data Values,OTHER
+1315,Improper Setting of Bus Controlling Capability in Fabric End-point,OTHER
+1316,Fabric-Address Map Allows Programming of Unwarranted Overlaps of Protected and Unprotected Ranges,OTHER
+1317,Improper Access Control in Fabric Bridge,OTHER
+1318,Missing Support for Security Features in On-chip Fabrics or Buses,OTHER
+1319,Improper Protection against Electromagnetic Fault Injection (EM-FI),OTHER
+1320,Improper Protection for Outbound Error Messages and Alert Signals,OTHER
+1321,Improperly Controlled Modification of Object Prototype Attributes ('Prototype Pollution'),OTHER
+1322,"Use of Blocking Code in Single-threaded, Non-blocking Context",OTHER
+1323,Improper Management of Sensitive Trace Data,OTHER
+1325,Improperly Controlled Sequential Memory Allocation,OTHER
+1326,Missing Immutable Root of Trust in Hardware,OTHER
+1327,Binding to an Unrestricted IP Address,OTHER
+1328,Security Version Number Mutable to Older Versions,OTHER
+1329,Reliance on Component That is Not Updateable,A03
+1330,Remanent Data Readable after Memory Erase,OTHER
+1331,Improper Isolation of Shared Resources in Network On Chip (NoC),OTHER
+1332,Improper Handling of Faults that Lead to Instruction Skips,OTHER
+1333,Inefficient Regular Expression Complexity,OTHER
+1334,Unauthorized Error Injection Can Degrade Hardware Redundancy,OTHER
+1335,Incorrect Bitwise Shift of Integer,OTHER
+1336,Improper Neutralization of Special Elements Used in a Template Engine,A05
+1338,Improper Protections Against Hardware Overheating,OTHER
+1339,Insufficient Precision or Accuracy of a Real Number,OTHER
+1341,Multiple Releases of Same Resource or Handle,OTHER
+1342,Information Exposure through Microarchitectural State after Transient Execution,OTHER
+1351,Improper Handling of Hardware Behavior in Exceptionally Cold Environments,OTHER
+1357,Reliance on Insufficiently Trustworthy Component,A03
+1384,Improper Handling of Physical or Environmental Conditions,OTHER
+1385,Missing Origin Validation in WebSockets,OTHER
+1386,Insecure Operation on Windows Junction / Mount Point,OTHER
+1389,Incorrect Parsing of Numbers with Different Radices,OTHER
+1390,Weak Authentication,OTHER
+1391,Use of Weak Credentials,OTHER
+1392,Use of Default Credentials,OTHER
+1393,Use of Default Password,OTHER
+1394,Use of Default Cryptographic Key,OTHER
+1395,Dependency on Vulnerable Third-Party Component,A03
+1419,Incorrect Initialization of Resource,OTHER
+1420,Exposure of Sensitive Information during Transient Execution,OTHER
+1421,Exposure of Sensitive Information in Shared Microarchitectural Structures during Transient Execution,OTHER
+1422,Exposure of Sensitive Information caused by Incorrect Data Forwarding during Transient Execution,OTHER
+1423,Exposure of Sensitive Information caused by Shared Microarchitectural Predictor State that Influences Transient Execution,OTHER
+1426,Improper Validation of Generative AI Output,OTHER
+1427,Improper Neutralization of Input Used for LLM Prompting,OTHER
+1428,Reliance on HTTP instead of HTTPS,OTHER
+1429,Missing Security-Relevant Feedback for Unexecuted Operations in Hardware Interface,OTHER
+1431,Driving Intermediate Cryptographic State/Results to Hardware Module Outputs,OTHER
+1434,Insecure Setting of Generative AI/ML Model Inference Parameters,OTHER
