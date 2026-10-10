@@ -17,8 +17,8 @@ from sklearn.metrics import accuracy_score, f1_score
 from sklearn.model_selection import train_test_split
 from torch import nn
 
-from src.dl_model import SeverityMLP
-from src.features import SEVERITY_LABELS, TEXT_COLUMN
+from src.inference import SeverityMLP
+from src.scoring import SEVERITY_LABELS, TEXT_COLUMN
 from train.common import MODELS_DIR, load_cve_data
 
 EPOCHS = 12

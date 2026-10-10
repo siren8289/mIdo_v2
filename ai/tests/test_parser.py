@@ -1,6 +1,6 @@
 """의존성 파서와 CVSS 점수 계산이 맞는지 확인한다."""
-from src.dependency_parser import parse_dependencies
-from src.features import cvss3_base_score, parse_cvss_vector
+from src.parser import parse_dependencies
+from src.scoring import cvss3_base_score, parse_cvss_vector
 
 
 def test_package_json():

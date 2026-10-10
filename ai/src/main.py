@@ -1,31 +1,18 @@
-"""MIDO AI 서버 (FastAPI). Spring 백엔드가 내부에서 호출한다.
+"""MIDO AI 서버 진입점 (FastAPI). Spring 백엔드가 내부에서 호출한다.
 
-POST /api/v1/analyze   기능 1: 의존성 위험 분석 (ML + DL + LLM)
-GET  /api/v1/owasp     기능 2: OWASP Top 10 공공데이터 현황
+기능 1: POST /api/v1/analyze - 의존성 위험 분석 (OSV + ML + DL + LLM)
+기능 2: GET  /api/v1/owasp   - OWASP Top 10 공공데이터 현황
+헬스체크: GET /health
 """
 from fastapi import FastAPI
-from pydantic import BaseModel, Field
 
-from src.service import analyze, owasp_report
+from src.api.routes import router
 
-app = FastAPI(title="MIDO AI", version="2.0.0")
+app = FastAPI(
+    title="MIDO AI",
+    description="의존성 취약점 분석 및 우선순위 평가 AI 서비스",
+    version="2.0.0",
+)
 
-
-class AnalyzeRequest(BaseModel):
-    # package.json, requirements.txt, build.gradle, pom.xml 내용을 그대로 붙여 넣는다.
-    manifest: str = Field(min_length=3, max_length=80_000, examples=['{"dependencies":{"lodash":"4.17.15"}}'])
-
-
-@app.get("/health")
-def health():
-    return {"status": "ok"}
-
-
-@app.post("/api/v1/analyze")
-def analyze_api(request: AnalyzeRequest):
-    return analyze(request.manifest)
-
-
-@app.get("/api/v1/owasp")
-def owasp_api():
-    return owasp_report()
+# 기능별 라우터 등록
+app.include_router(router)

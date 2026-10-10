@@ -4,7 +4,7 @@ from pathlib import Path
 
 import pandas as pd
 
-from src.features import FEATURE_COLUMNS, TARGET_COLUMN, make_ml_frame
+from src.scoring import FEATURE_COLUMNS, TARGET_COLUMN, make_ml_frame
 
 ROOT_DIR = Path(__file__).resolve().parents[2]
 PROCESSED_DIR = ROOT_DIR / "data" / "processed"

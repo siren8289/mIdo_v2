@@ -1,51 +1,39 @@
-"""메인 기능 2개를 실제로 수행하는 곳.
+"""기능 1: 의존성 취약점 분석 및 우선순위 평가 오케스트레이션
 
-기능 1. 의존성 위험 분석
-  사용자가 붙여 넣은 package.json / requirements.txt / build.gradle / pom.xml 에서
-  라이브러리를 뽑고, OSV·EPSS·KEV·CWE를 모은 뒤 ML·DL·LLM으로 우선순위를 매긴다.
-
-기능 2. OWASP Top 10 현황
-  data 파이프라인이 만든 공공데이터 통계를 그대로 보여 준다.
+매니페스트 파싱 → OSV/EPSS/KEV 취약점 수집 → DL 심각도 추론 → ML 악용 위험 예측 → LLM 조치 가이드 생성
 """
-import json
 from collections import Counter
-from pathlib import Path
 
-from src.dependency_parser import parse_dependencies
-from src.dl_model import predict_severity
+from src.core.config import SEVERITY_RANK
 from src.evidence import cwe_info, fetch_epss, is_in_kev, query_osv_all
-from src.features import SEVERITY_TO_SCORE, make_ml_frame, severity_from_score
-from src.llm_explain import explain
-from src.ml_model import predict_exploit
-
-MODELS_DIR = Path(__file__).resolve().parent.parent / "models"
-
-# 심각도 글자를 숫자로 바꿔서 정렬할 때 쓴다. 숫자가 클수록 더 위험.
-SEVERITY_RANK = {"CRITICAL": 4, "HIGH": 3, "MEDIUM": 2, "LOW": 1, "UNKNOWN": 0}
+from src.inference import predict_exploit, predict_severity
+from src.llm import explain
+from src.parser import parse_dependencies
+from src.scoring import SEVERITY_TO_SCORE, make_ml_frame, severity_from_score
 
 
-def analyze(manifest_text):
-    """기능 1: 의존성 파일을 받아 취약점 보고서를 만든다."""
+def analyze(manifest_text: str) -> dict:
+    """의존성 파일을 받아 전체 보안 분석 및 우선순위 정렬 리포트를 생성한다."""
     file_type, dependencies = parse_dependencies(manifest_text)
     if not dependencies:
         return _empty_report(file_type, "라이브러리 이름과 정확한 버전을 찾지 못했습니다.")
 
-    # 1) OSV에서 라이브러리별 알려진 취약점을 찾는다.
+    # 1) OSV에서 라이브러리별 알려진 취약점을 동시 조회
     osv_results = query_osv_all(dependencies)
     findings = []
     for result in osv_results:
         findings.extend(result["vulns"])
 
-    # 2) CVE가 있는 항목만 EPSS(악용 확률)를 한 번에 받아 온다.
+    # 2) CVE 식별자가 있는 항목 대상 EPSS(악용 확률) 일괄 조회
     cve_ids = [item["cve_id"] for item in findings if item.get("cve_id")]
     epss_map = fetch_epss(cve_ids)
 
-    # 3) CVSS 점수가 없는 취약점은 DL이 설명 글을 보고 심각도를 추정한다.
+    # 3) CVSS 점수가 누락된 취약점은 DL 모델로 설명 텍스트 기반 심각도 추정
     need_dl = [item for item in findings if item.get("cvss_score") is None]
     dl_results = predict_severity([item["summary"] or item["details"] for item in need_dl])
     dl_by_id = {item["vuln_id"]: dl for item, dl in zip(need_dl, dl_results)}
 
-    # 4) 각 취약점에 KEV / CWE / OWASP / ML 점수를 붙인다.
+    # 4) 각 취약점에 KEV / CWE / OWASP / ML 악용 위험 점수 부착
     enriched = [_enrich(item, epss_map, dl_by_id) for item in findings]
     if enriched:
         ml_scores = predict_exploit(make_ml_frame(enriched))
@@ -61,30 +49,23 @@ def analyze(manifest_text):
         "summary": _summary(dependencies, enriched, osv_results),
         "owasp_breakdown": _owasp_breakdown(enriched),
     }
-    # OSV를 못 불렀는데 취약점도 없으면, '없다'가 아니라 '조회 실패'로 설명한다.
+
+    # OSV 조회 실패로 인해 취약점이 없는 경우 에러 안내
     if report["summary"]["osv_failures"] and not enriched:
         report["explanation"] = (
             "OSV 취약점 조회에 실패했습니다. 인터넷 연결을 확인하고 다시 시도해 주세요."
         )
         report["explanation_source"] = "basic"
         return report
+
     explanation, source = explain(report)
     report["explanation"] = explanation
     report["explanation_source"] = source
     return report
 
 
-def owasp_report():
-    """기능 2: 공공데이터로 만든 OWASP Top 10 통계를 돌려준다."""
-    path = MODELS_DIR / "owasp_stats.json"
-    if not path.exists():
-        return {"items": [], "total_cves": 0}
-    items = json.loads(path.read_text(encoding="utf-8"))
-    return {"items": items, "total_cves": sum(item.get("cve_count", 0) for item in items)}
-
-
-def _enrich(item, epss_map, dl_by_id):
-    """취약점 1건에 공공데이터·AI 결과를 붙인다."""
+def _enrich(item: dict, epss_map: dict[str, float], dl_by_id: dict[str, dict]) -> dict:
+    """취약점 1건에 외부 위협 인텔리전스 및 모델 추론 결과를 결합한다."""
     info = cwe_info(item.get("cwe_id") or 0)
     cve_id = item.get("cve_id")
     score = item.get("cvss_score")
@@ -119,8 +100,8 @@ def _enrich(item, epss_map, dl_by_id):
     }
 
 
-def _priority(item):
-    """숫자가 클수록 먼저 고쳐야 한다. KEV > EPSS > 심각도 > ML 순으로 더한다."""
+def _priority(item: dict) -> float:
+    """조치 우선순위 산출: KEV(100) > EPSS(40) > 심각도(32) > ML 악용위험(20) 가중합"""
     return (
         (100 if item["in_kev"] else 0)
         + item["epss"] * 40
@@ -129,7 +110,8 @@ def _priority(item):
     )
 
 
-def _summary(dependencies, findings, osv_results):
+def _summary(dependencies: list[dict], findings: list[dict], osv_results: list[dict]) -> dict:
+    """분석 결과 전체 수치 요약"""
     kev_count = sum(1 for item in findings if item["in_kev"])
     vulnerable = {item["package"] for item in findings}
     failed = sum(1 for result in osv_results if result["error"])
@@ -144,8 +126,8 @@ def _summary(dependencies, findings, osv_results):
     }
 
 
-def _level(findings, kev_count):
-    """화면에 보여 줄 한 줄 조치 단계"""
+def _level(findings: list[dict], kev_count: int) -> str:
+    """최종 조치 권고 레벨 결정 (critical / high / medium / none)"""
     if kev_count > 0 or any(item["severity"] == "CRITICAL" for item in findings):
         return "critical"
     if any(item["severity"] == "HIGH" or item["epss"] >= 0.1 or item["ml_exploit_risk"] >= 0.5 for item in findings):
@@ -155,12 +137,14 @@ def _level(findings, kev_count):
     return "none"
 
 
-def _owasp_breakdown(findings):
+def _owasp_breakdown(findings: list[dict]) -> list[dict]:
+    """OWASP Top 10 항목별 취약점 발생 빈도 집계"""
     counts = Counter(item["owasp"] for item in findings)
     return [{"owasp": code, "count": count} for code, count in counts.most_common()]
 
 
-def _empty_report(file_type, message):
+def _empty_report(file_type: str, message: str) -> dict:
+    """의존성 파싱 실패 또는 분석 대상이 없을 때 반환하는 빈 리포트"""
     return {
         "file_type": file_type,
         "dependencies": [],
