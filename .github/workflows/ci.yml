@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [main]
+    branches: [main, "001-ai-vulnerability-rag", "feat/**"]
   pull_request:
     branches: [main]
 
@@ -39,7 +39,7 @@ jobs:
       - run: npm run build
 
   ai:
-    name: AI (FastAPI)
+    name: AI (FastAPI + RAG + Agent)
     runs-on: ubuntu-latest
     defaults:
       run:
