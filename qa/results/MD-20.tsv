@@ -1,0 +1,11 @@
+id	verdict	actual	expected
+MD-20-001	통과	items=11 total=80636	items 원본 + count 합계
+MD-20-002	보류	이번 실행에서 함수 호출, 화면, MockMvc, 설정 확인 결과가 없음	items=[], total_cves=0
+MD-20-003	보류	이번 실행에서 함수 호출, 화면, MockMvc, 설정 확인 결과가 없음	items=[], total_cves=0
+MD-20-004	보류	이번 실행에서 함수 호출, 화면, MockMvc, 설정 확인 결과가 없음	total_cves=3
+MD-20-005	보류	이번 실행에서 함수 호출, 화면, MockMvc, 설정 확인 결과가 없음	total_cves=10
+MD-20-006	보류	이번 실행에서 함수 호출, 화면, MockMvc, 설정 확인 결과가 없음	누락 0 처리
+MD-20-007	실패	JSONDecodeError 전파, 메시지에 경로/원문이 남을 수 있음: Expecting property name enclosed in double quotes: line 1 column 2 (char 1)	예외 대응/보안 오류 노출 금지
+MD-20-008	보류	이번 실행에서 함수 호출, 화면, MockMvc, 설정 확인 결과가 없음	숫자 합산 불가에 대한 검증 필요
+MD-20-009	실패	total_cves=-1 음수 차단 없음	잘못된 통계 차단
+MD-20-010	보류	이번 실행에서 함수 호출, 화면, MockMvc, 설정 확인 결과가 없음	그룹별 합계=원본 CVE 행 수
