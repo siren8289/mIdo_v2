@@ -1,0 +1,15 @@
+id	verdict	actual	expected
+MD-04-001	통과	loading	'불러오는 중...' 안내
+MD-04-002	통과	table	표가 정상 렌더
+MD-04-003	실패	MIDO 의존성 분석 OWASP Top 10 OWASP Top 10:2025 현황  NVD + EPSS + CISA KEV + CWE를 전처리한 결과입니다. 최근 공개 CVE 0건.  분류 이름 CVE 수 평균 CVSS 평균 EPSS KEV 비율	빈 데이터 상태가 명확하게 표시되는지 확인
+MD-04-004	통과	500	서버 오류 문구 표시
+MD-04-005	통과	network	오류 표시
+MD-04-006	통과	total	123,456건 표시
+MD-04-007	통과	cvss	7.12 표시
+MD-04-008	통과	epss	12.35% 표시
+MD-04-009	통과	kev	11.11% 표시
+MD-04-010	통과	count	12,000 표시
+MD-04-011	통과	zero	0건 확인
+MD-04-012	실패	avg_epss=null 은 JS에서 0으로 계산되어 0.00%로 보이고 예외는 나지 않는다	타입 안전성 및 null 표기 점검
+MD-04-013	통과	len=120	가로스크롤에서 셀 겹침 없음
+MD-04-014	통과	{"sw":222,"cw":222,"table":222,"overflowX":"auto"}	가로 스크롤로 접근 가능
