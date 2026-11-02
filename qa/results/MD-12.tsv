@@ -1,0 +1,14 @@
+id	verdict	actual	expected
+MD-12-001	통과	n=1 want=1 org.a:b@1.0.0 fn=parse_pom	추출 1개; org.a:b
+MD-12-002	통과	n=2 want=2 a:b@1,x:y@2 fn=parse_pom	추출 2개; 2건
+MD-12-003	통과	n=1 want=1 a:b@1.0 fn=parse_pom	추출 1개; 멀티라인 지원
+MD-12-004	통과	n=0 want=0  fn=parse_pom	추출 0개; 변수 제외
+MD-12-005	통과	n=0 want=0  fn=parse_pom	추출 0개; 필수 조각 없음
+MD-12-006	통과	n=0 want=0  fn=parse_pom	추출 0개; 필수 조각 없음
+MD-12-007	통과	n=1 want=1 a:b@1 fn=parse_pom	추출 1개; 문맥에 따라 추출 정책 확인
+MD-12-008	통과	n=0 want=0  fn=parse_pom	추출 0개; 현재 비지원 네임스페이스
+MD-12-009	통과	n=0 want=0  fn=parse_pom	추출 0개; 현재 비지원 시작 태그
+MD-12-010	실패	n=2 want=1 a:b@1,a:b@1 fn=parse_pom	추출 1개; 중복 제거
+MD-12-011	통과	n=0 want=0  fn=parse_pom	추출 0개; case sensitive
+MD-12-012	통과	n=0 want=0  fn=parse_pom	추출 0개; 버전 해석 불가
+MD-12-013	통과	n=1 want=1 a:b@1.2.3 fn=parse_pom	추출 1개; 1.2.3
