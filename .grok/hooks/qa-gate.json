@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 qa/hooks/stop_gate.py",
+            "timeout": 20
+          }
+        ]
+      }
+    ]
+  }
+}

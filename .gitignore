@@ -24,3 +24,6 @@ bin/
 # 공공데이터 원본과 큰 학습표는 git에 올리지 않는다.
 data/raw/
 data/processed/cve_dataset.csv
+
+# QA 게이트 로컬 스탬프. 보고서 본문은 커밋한다.
+qa/reports/.last_run
