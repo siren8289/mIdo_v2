@@ -1,0 +1,28 @@
+id	verdict	actual	expected
+MD-16-001	통과	라이브러리 이름과 정확한 버전을 찾지 못했습니다.	빈 리포트, 안내/basic
+MD-16-002	통과	{'dependency_count': 1, 'vulnerable_dependency_count': 0, 'vulnerability_count': 0, 'kev_count': 0, 'osv_failures': 0, 'level': 'none'}	vulnerability_count=0,level=none
+MD-16-003	통과	{'dependency_count': 3, 'vulnerable_dependency_count': 3, 'vulnerability_count': 5, 'kev_count': 0, 'osv_failures': 0, 'level': 'medium'}	dependency_count=3, vulnerability_count=5
+MD-16-004	통과	{'dependency_count': 1, 'vulnerable_dependency_count': 1, 'vulnerability_count': 2, 'kev_count': 2, 'osv_failures': 0, 'level': 'critical'}	vulnerable_dependency_count=1
+MD-16-005	통과	kev critical	kev_count=1,level=critical
+MD-16-006	통과	critical	level=critical
+MD-16-007	통과	high	level=high
+MD-16-008	통과	epss 0.1	level=high
+MD-16-009	통과	epss under	level=medium
+MD-16-010	통과	ml 0.5	level=high
+MD-16-011	통과	ml under	level=medium
+MD-16-012	통과	low->medium	level=medium (low 레벨 분기 없음)
+MD-16-013	통과	OSV에서 알려진 취약점이 발견되지 않았습니다. 아직 공개되지 않은 취약점이 있을 수 있으니 의존성을 주기적으로 점검하세요.	안전 단정 금지 기본문장
+MD-16-014	통과	OSV 취약점 조회에 실패했습니다. 인터넷 연결을 확인하고 다시 시도해 주세요.	조회실패 안내 별도
+MD-16-015	통과	{'dependency_count': 1, 'vulnerable_dependency_count': 1, 'vulnerability_count': 1, 'kev_count': 0, 'osv_failures': 1, 'level': 'medium'}	취약점 결과 유지하고 오류수 집계
+MD-16-016	실패	예외가 표준 응답 없이 전파됨: ml down	분석 전체 실패/예외 표준화 필요
+MD-16-017	실패	예외가 표준 응답 없이 전파됨: dl down	분석 전체 실패/예외 표준화 필요
+MD-16-018	통과	priority=108	priority>=100
+MD-16-019	통과	priority=52.0 want=52	priority=16+24+12=52
+MD-16-020	통과	['a', 'b']	stable sorted order 보존
+MD-16-021	통과	source=dl score=8.0	severity_source=dl, score=8.0
+MD-16-022	통과	source=cvss score=9.8 sev=CRITICAL	severity_source=cvss,score=9.8
+MD-16-023	통과	source=osv score=8.0 sev=HIGH	severity_source=osv,score=8.0
+MD-16-024	통과	owasp=OTHER	owasp=OTHER
+MD-16-025	통과	[{'owasp': 'A01', 'count': 2}, {'owasp': 'A03', 'count': 1}]	breakdown count 2+1
+MD-16-026	실패	동일 CVE를 findings에서 제거하지 않음. EPSS는 CVE 목록으로 한 번 조회	findings 중복 정책·EPSS batch 확인
+MD-16-027	통과	{'dependency_count': 0, 'vulnerable_dependency_count': 0, 'vulnerability_count': 0, 'kev_count': 0, 'osv_failures': 2, 'level': 'none'}	summary.osv_failures=2
