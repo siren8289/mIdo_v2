@@ -1,0 +1,2 @@
+﻿RUN_ID	TC_ID	FEATURE_ID	AREA	SECTION	TOOL_A	TOOL_A_RESULT	TOOL_B	TOOL_B_RESULT	FINAL_STATUS	EXPECTED	ACTUAL	EVIDENCE	GIT_COMMIT	FILE	FUNCTION	LINE	ISSUE_ID	RISK_ID	EXECUTED_AT
+RUN-20261103-034422	SEC-NO-404	없는 경로	03_security_quality	catch_all_route	security_scan.py	FAIL	ui_checks.mjs	FAIL	FAIL	없는 경로용 path=* 라우트	A:path=* 없음 / B:path=* 없음	A[FAIL] App.tsx Routes 검색 || B[FAIL] node가 App.tsx를 읽음	7678a457b316+dirty	front/src/App.tsx	App	19	MD-01-008	RISK-SEC-NO-404	2026-11-03T03:44:22+09:00

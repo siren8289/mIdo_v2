@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-"""QA 게이트. 저장소 루트에서 python3 qa/run.py
+"""QA gate. From repo root: python3 qa/run.py
 
-규칙의 기준은 qa-policy.md 다. 이 스크립트는 그 규칙대로 두 도구를 실행하고
-qa/reports 에만 누적한다. 제품 코드는 수정하지 않는다.
+Follows qa-policy.md. Dual-tool results go to
+qa/results/<area>/<section>/<YYYY-MM-DD>/ (five English-named day files).
+Does not modify product code.
 """
 import json
 import os
@@ -18,6 +19,15 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from qa.recorder import CaseResult, RiskNote, RunRecord, now_seoul, run_id, write_run
+
+def _section_map() -> dict[str, str]:
+    path = ROOT / "qa" / "config" / "section-map.json"
+    if not path.exists():
+        return {}
+    try:
+        return json.loads(path.read_text(encoding="utf-8")).get("by_tc", {})
+    except (OSError, json.JSONDecodeError):
+        return {}
 
 PYTEST_NAMES = {
     "test_package_json": "UNIT-PKG",
@@ -210,6 +220,20 @@ CASES = [
      "tsc --noEmit과 vite build가 모두 성공한다.",
      "cd front && npx tsc --noEmit && npx vite build",
      "tsc --noEmit", "vite build", "tsc", "vite"),
+    ("INFRA-COMPOSE", "infra", "compose healthcheck 정의", "agree", True, "MEDIUM",
+     "compose.yaml에 서비스·healthcheck가 없다.",
+     "배포 시 준비 완료 전 트래픽이 들어갈 수 있다.",
+     "front/back/ai와 healthcheck를 정의한다.", "NONE",
+     "compose.yaml에 front/back/ai·healthcheck가 있고 Dockerfile이 있다.",
+     "python3 qa/cross/compose_checks.py && python3 qa/cross/dockerfile_checks.py",
+     "compose_checks.py", "dockerfile_checks.py", "compose", "dockerfiles"),
+    ("INFRA-SMOKE", "infra", "로컬 HTTP 스모크", "both_must_pass", True, "MEDIUM",
+     "로컬 스택이 기동되지 않았거나 포트가 닫혀 있다.",
+     "배포 스모크 없이 PASS하면 실제 요청 실패를 놓친다.",
+     "스택 기동 후 front·back HTTP 스모크를 확인한다. 미기동은 NOT_RUN.", "NONE",
+     "front(80)과 back(8080) HTTP 스모크가 모두 성공한다. 미기동이면 NOT_RUN.",
+     "python3 qa/cross/http_smoke.py",
+     "http_smoke front", "http_smoke back", "smoke_front", "smoke_back"),
 ]
 
 
@@ -366,10 +390,35 @@ def main() -> int:
     rg = _json_tool([sys.executable, "qa/cross/rg_rules.py"], 60)
 
     gradle_started = time.time()
-    gradle = _run(["./gradlew", "test", "--offline", "--tests", "com.mido.scan.ScanControllerTest"], ROOT / "back", 240)
-    if gradle.returncode != 0 and "No cached version" in (gradle.stdout + gradle.stderr):
+    gradle_error = ""
+    try:
+        gradle = _run(
+            ["./gradlew", "test", "--offline", "--tests", "com.mido.scan.ScanControllerTest"],
+            ROOT / "back", 180,
+        )
+    except subprocess.TimeoutExpired:
+        gradle = subprocess.CompletedProcess(
+            args=["./gradlew", "test", "--offline"], returncode=1, stdout="", stderr="offline timeout",
+        )
+    need_online = (
+        gradle.returncode != 0
+        and (
+            "No cached version" in (gradle.stdout + gradle.stderr)
+            or "offline timeout" in (gradle.stderr or "")
+            or "TIMEOUT" in (gradle.stderr or "")
+        )
+    )
+    if need_online:
         gradle_started = time.time()
-        gradle = _run(["./gradlew", "test", "--tests", "com.mido.scan.ScanControllerTest"], ROOT / "back", 300)
+        try:
+            gradle = _run(
+                ["./gradlew", "test", "--tests", "com.mido.scan.ScanControllerTest"],
+                ROOT / "back", 420,
+            )
+        except subprocess.TimeoutExpired as exc:
+            gradle = subprocess.CompletedProcess(
+                args=["./gradlew", "test"], returncode=1, stdout="", stderr=f"gradle timeout: {exc}",
+            )
     report = ROOT / "back" / "build" / "test-results" / "test" / "TEST-com.mido.scan.ScanControllerTest.xml"
     fresh = report.exists() and report.stat().st_mtime >= gradle_started - 2
     gradle_found = _junit(report) if gradle.returncode == 0 or fresh else {}
@@ -381,6 +430,9 @@ def main() -> int:
 
     tsc = _run(["npx", "tsc", "--noEmit"], ROOT / "front", 180)
     vite = _run(["npx", "vite", "build"], ROOT / "front", 180)
+    compose = _json_tool([sys.executable, "qa/cross/compose_checks.py"], 30)
+    dockerfiles = _json_tool([sys.executable, "qa/cross/dockerfile_checks.py"], 30)
+    smoke = _json_tool([sys.executable, "qa/cross/http_smoke.py"], 30)
 
     def _cmd(tc_id: str, proc: subprocess.CompletedProcess, label: str) -> dict:
         status = "PASS" if proc.returncode == 0 else "FAIL"
@@ -404,8 +456,23 @@ def main() -> int:
         "rg": _index(rg),
         "tsc": {"REG-FRONT": _cmd("REG-FRONT", tsc, "tsc --noEmit")},
         "vite": {"REG-FRONT": _cmd("REG-FRONT", vite, "vite build")},
+        "compose": _index(compose),
+        "dockerfiles": _index(dockerfiles),
+        "smoke_front": {},
+        "smoke_back": {},
         "none": {},
     }
+    smoke_idx = _index(smoke)
+    if "INFRA-SMOKE-FRONT" in smoke_idx:
+        buckets["smoke_front"]["INFRA-SMOKE"] = {**smoke_idx["INFRA-SMOKE-FRONT"], "id": "INFRA-SMOKE"}
+    if "INFRA-SMOKE-BACK" in smoke_idx:
+        buckets["smoke_back"]["INFRA-SMOKE"] = {**smoke_idx["INFRA-SMOKE-BACK"], "id": "INFRA-SMOKE"}
+    for label, payload in (("compose", compose), ("dockerfiles", dockerfiles), ("smoke", smoke)):
+        if payload.get("_error") and not payload.get("cases"):
+            buckets[label + "_error"] = payload["_error"]
+            if label in ("compose", "dockerfiles"):
+                buckets[label] = {}
+
     if pytest_error:
         buckets["pytest_error"] = pytest_error
     if direct.get("_error") and not direct.get("cases"):
@@ -418,6 +485,7 @@ def main() -> int:
 
     results: list[CaseResult] = []
     risks: list[RiskNote] = []
+    sections = _section_map()
     for row in CASES:
         (tc_id, test_type, feature, mode, required, severity, likelihood, impact,
          recommendation, issue, purpose, repro, tool_a, tool_b, source_a, source_b) = row
@@ -442,6 +510,7 @@ def main() -> int:
         if final == "ERROR" and left["status"] != right["status"] and mode == "agree":
             cause = (cause + " 두 도구 결과가 달라 ERROR.").strip()
         risk = f"RISK-{tc_id}" if severity and final in {"FAIL", "ERROR"} else "NONE"
+        section = sections.get(tc_id) or feature
         results.append(CaseResult(
             tc_id=tc_id, feature=feature, test_type=test_type,
             tool_a=tool_a, tool_a_result=left["status"],
@@ -452,6 +521,7 @@ def main() -> int:
             cause=cause, error=left.get("error") or right.get("error") or "",
             input_value=left.get("input") or right.get("input") or "",
             required=required, severity=severity,
+            section=section,
         ))
         if risk != "NONE":
             risks.append(RiskNote(
@@ -459,6 +529,7 @@ def main() -> int:
                 likelihood=likelihood, impact=impact, recommendation=recommendation,
                 tc_id=tc_id, file=file, function=function, line=line, issue_id=issue or "NONE",
                 detail=cause or evidence[:400],
+                section=section,
             ))
 
     risks.append(RiskNote(
@@ -472,23 +543,67 @@ def main() -> int:
         file="back/src/test/java/com/mido/scan/ScanControllerTest.java",
         function="createAndGet",
         line="UNKNOWN",
+        section="scan_create_get",
         detail="api_rules.py는 @NotBlank/@Size만 재구현한다. 201/404/500은 이번 도구 B가 관찰하지 않았다.",
     ))
     risks.append(RiskNote(
         risk_id="RISK-COVERAGE-GAP",
         test_type="regression",
         severity="MEDIUM",
-        likelihood="이 러너가 integration, e2e, performance를 실행하지 않는다.",
-        impact="라이브 NVD, 브라우저 클릭, 부하 수치는 이번 RUN의 PASS가 아니다.",
-        recommendation="해당 종류를 실제로 실행하기 전에는 폴더를 만들지 않는다. 과거 관찰은 qa/results/MD-*.tsv 에 둔다.",
+        likelihood="이 러너가 Playwright E2E·k6 부하·라이브 NVD를 실행하지 않는다.",
+        impact="브라우저 클릭·부하 수치·라이브 API는 이번 RUN의 PASS가 아니다.",
+        recommendation="해당 검사를 실제로 실행하기 전에는 날짜 폴더를 만들지 않는다.",
         tc_id="NONE",
-        detail="이번 명령은 unit, api, security, regression만 실행했다.",
+        section="coverage_gap",
+        detail="V3 목표 도구 중 미도입 항목은 별도 RISK로 남긴다.",
+    ))
+    risks.append(RiskNote(
+        risk_id="RISK-V3-TOOL-GAP",
+        test_type="security",
+        severity="HIGH",
+        likelihood="CodeQL·Semgrep·Playwright·Schemathesis·Testcontainers 미연결.",
+        impact="V3 권장 이중 경로 일부가 현재 게이트에 없다. 정적 대체 경로만 실행 중.",
+        recommendation="CI에 CodeQL/Semgrep, web에 Playwright+OpenAPI 검사를 단계적으로 연결한다.",
+        tc_id="NONE",
+        section="tooling_gap",
+        detail="현재 03_security_quality는 security_scan+ui/rg, 02_web_api는 MockMvc+api_rules.",
+        status="OPEN",
     ))
 
     record = RunRecord(
         run_id=current, executed_at=started, git_commit=commit, cases=results, risks=risks,
     )
     written = write_run(ROOT, record)
+    # Sync qa/input/testcases.tsv status columns from this dual-verify run.
+    try:
+        import csv
+        from pathlib import Path as _P
+        tsv_path = ROOT / "qa" / "input" / "testcases.tsv"
+        if tsv_path.exists():
+            with tsv_path.open("r", encoding="utf-8-sig", newline="") as f:
+                reader = csv.DictReader(f, delimiter="\t")
+                fields = list(reader.fieldnames or [])
+                rows = list(reader)
+            by_id = {c.tc_id: c for c in results}
+            for row in rows:
+                case = by_id.get((row.get("TC_ID") or "").strip())
+                if not case:
+                    continue
+                row["상태"] = case.final_status
+                row["최근실행"] = started
+                row["상세"] = (
+                    f"A[{case.tool_a_result}] {case.tool_a} || "
+                    f"B[{case.tool_b_result}] {case.tool_b} | {case.evidence}"
+                )[:500]
+                row["실행명령"] = f"{case.tool_a} || {case.tool_b}"
+                row["종료코드"] = "0" if case.final_status == "PASS" else "1"
+            with tsv_path.open("w", encoding="utf-8-sig", newline="") as f:
+                writer = csv.DictWriter(f, fieldnames=fields, delimiter="\t", lineterminator="\n", extrasaction="ignore")
+                writer.writeheader()
+                writer.writerows(rows)
+            written.append(tsv_path)
+    except OSError as exc:
+        print(f"NOTICE: could not sync input TSV: {exc}", file=sys.stderr)
     blocking = [
         case.tc_id for case in results
         if case.required and case.final_status in {"FAIL", "ERROR", "BLOCKED", "NOT_RUN"}
@@ -503,7 +618,10 @@ def main() -> int:
         "blocking": blocking,
         "high_open": high,
     }
-    stamp_path = ROOT / "qa" / "reports" / ".last_run"
+    from qa.layout import ensure_area_tree
+
+    ensure_area_tree(ROOT)
+    stamp_path = ROOT / "qa" / "results" / ".last_run"
     stamp_path.parent.mkdir(parents=True, exist_ok=True)
     stamp_path.write_text(json.dumps(stamp, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
@@ -516,7 +634,7 @@ def main() -> int:
         print("blocking " + ", ".join(blocking))
     if high:
         print("high " + ", ".join(high))
-    print("reports " + ", ".join(str(path.relative_to(ROOT)) for path in written[:8]) + " ...")
+    print("results " + ", ".join(str(path.relative_to(ROOT)) for path in written[:8]) + " ...")
     return code
 
 

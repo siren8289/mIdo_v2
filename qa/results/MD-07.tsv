@@ -1,9 +1,0 @@
-id	verdict	actual	expected
-MD-07-001	통과	GET /api/owasp → 200, total_cves=3, items[0].owasp=A01	200 + items, total_cves
-MD-07-002	통과	AiClient JSON이 상태 200으로 그대로 전달됨	JSON 그대로 전달
-MD-07-003	통과	AI HTTP 503 → 502 AI_ERROR	AI_ERROR 5xx
-MD-07-004	통과	AI null 본문 → 502 AI_ERROR	AI_ERROR
-MD-07-005	통과	AI JSON 파싱 실패 → 502, stackTrace 필드 없음	오류로 안전 처리
-MD-07-006	통과	getForObject URL이 /api/v1/owasp 로 끝남	GET /api/v1/owasp 정확 경로
-MD-07-007	통과	GET /api/health → 200 {status:ok}	정상 응답
-MD-07-008	통과	Origin http://localhost:5173 OPTIONS → 200, Access-Control-Allow-Origin 이 그 Origin	설정된 Origin에 허용 메서드 반환

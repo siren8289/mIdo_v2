@@ -1,0 +1,2 @@
+﻿RUN_ID	TC_ID	FEATURE_ID	AREA	SECTION	TOOL_A	TOOL_A_RESULT	TOOL_B	TOOL_B_RESULT	FINAL_STATUS	EXPECTED	ACTUAL	EVIDENCE	GIT_COMMIT	FILE	FUNCTION	LINE	ISSUE_ID	RISK_ID	EXECUTED_AT
+RUN-20261103-034422	SEC-LEVEL	알 수 없는 위험 등급	03_security_quality	risk_level_label	security_scan.py	FAIL	ui_checks.mjs	FAIL	FAIL	알 수 없는 level은 '문제 없음'이 아님	A:없는 키는 LEVEL.none(문제 없음)으로 떨어짐 / B:문제 없음	A[FAIL] 폴백 식과 none 라벨 확인 || B[FAIL] 타입 주석을 지운 LEVEL 객체를 node Function으로 실행	7678a457b316+dirty	front/src/pages/ResultPage.tsx	ResultPage	36	MD-03-010	RISK-SEC-LEVEL	2026-11-03T03:44:22+09:00

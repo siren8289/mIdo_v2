@@ -1,9 +1,0 @@
-id	verdict	actual	expected
-MD-08-001	통과	잘못된 JSON → 400 errorCode=INVALID_JSON	HTTP 400 errorCode=INVALID_JSON
-MD-08-002	통과	검증 실패 → 400 errorCode=VALIDATION_ERROR	HTTP 400 errorCode=VALIDATION_ERROR
-MD-08-003	통과	없는 id → 404 JSON NOT_FOUND	HTTP 404 + JSON
-MD-08-004	통과	처리되지 않은 예외 → 500 INTERNAL_ERROR, message=서버 오류가 발생했습니다.	HTTP 500 + 일반 메시지
-MD-08-005	통과	오류 본문에 errorCode와 message가 있음	errorCode, message 존재
-MD-08-006	통과	IllegalStateException(/secret/path) 본문에 stackTrace와 경로가 없음	클라이언트에 스택·내부 경로 노출 안함
-MD-08-007	통과	연결 3초, 읽기 60초. 초과 시 RestClientException이 502 AI_ERROR로 변환됨	안전한 응답/로그·요청 종료
-MD-08-008	통과	Origin https://evil.test GET /api/health → 403, Access-Control-Allow-Origin 없음	Access-Control-Allow-Origin 미포함

@@ -9,7 +9,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-STAMP = ROOT / "qa" / "reports" / ".last_run"
+STAMP = ROOT / "qa" / "results" / ".last_run"
 SKIP_DIRS = {
     "__pycache__",
     "node_modules",
@@ -75,7 +75,7 @@ def main() -> None:
     if latest_mtime() > STAMP.stat().st_mtime + 0.05:
         print(json.dumps({
             "decision": "block",
-            "reason": "제품 소스 또는 QA 게이트가 qa/reports/.last_run 보다 새롭습니다. python3 qa/run.py 로 교차 검증과 날짜별 기록을 갱신한 뒤 마무리하세요.",
+            "reason": "제품 소스 또는 QA 게이트가 qa/results/.last_run 보다 새롭습니다. python3 qa/run.py 로 교차 검증과 날짜별 기록을 갱신한 뒤 마무리하세요.",
         }, ensure_ascii=False))
 
 

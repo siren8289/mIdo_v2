@@ -1,77 +1,100 @@
-# MIDO QA·Security 정책
+# MIDO QA·Security 정책 V3.0
 
-이 파일이 규칙의 기준이다. 실행 절차는 `.grok/skills/qa-security/SKILL.md`, 항상 적용할 최소 강제는 `AGENTS.md`가 이 파일을 가리킨다.
+이 파일이 규칙의 기준이다. `AGENTS.md`가 상시 적용을 강제한다.
+실행: `python3 qa/run.py`(이중 검증 게이트), `python3 scripts/run_qa.py`(TSV·test_map).
+공통 스킬: `tsv-qa` 1개. QA Agent 1개.
 
-적용 범위는 최초 개발부터 기능 추가, 수정, 유지보수, 버그 수정, 리팩터링, 배포 설정 변경까지다. 사용자가 QA를 다시 요청하지 않아도 매 작업에 적용한다.
+신규 기능·수정·유지보수·버그 수정·리팩터링·API·DB·UI·인프라·배포 변경마다
+TC 추가/갱신과 자동 검증을 수행한다. 사용자가 매번 QA를 요청할 필요 없다.
 
-## 작업 루프
+> 지침만 작성했다고 자동 실행되었다고 보고하지 않는다.
+> Hook/`scripts/watch_qa.py`와 GitHub Actions `qa-gate`가 실제로 연결·검증되어야 한다.
 
-1. 요구사항, 변경 파일, 영향 범위를 분석한다.
-2. 기존 TC를 재사용하고, 빠진 TC만 추가한다. 불명확한 요구사항은 추측하지 않고 RISK로 기록한다.
-3. 코드를 작성하거나 수정한다.
-4. 저장소 루트에서 `python3 qa/run.py`를 실행한다.
-5. 서로 다른 도구 최소 2개로 교차 검증한다.
-6. PASS / FAIL / RISK로 나누고 `qa/reports/{test-type}/{YYYY-MM-DD}/`에 누적 기록한다.
-7. FAIL 또는 RISK를 발견하면 제품 코드를 고치기 전에 해당 MD에 먼저 기록하고 사용자에게 보고한다.
-8. 수정한 뒤에는 같은 두 도구로 재검증하고 회귀 테스트를 실행한다.
-9. 최종 상태와 미해결 위험을 보고한다.
+## 1. 4영역과 이중 검증
 
-날짜와 시각은 Asia/Seoul이다. 같은 날 여러 번 실행하면 RUN_ID로 누적한다. 과거 행, 과거 문단, `qa/results/`의 매트릭스 TSV는 삭제하거나 덮어쓰지 않는다.
-
-## 테스트 설계
-
-프로젝트 구조, 기술 스택, 요구사항, 변경 영향 범위를 먼저 본다. TC는 ISTQB의 정상값·예외값·NULL·빈 값·경계값·중복·오류 응답·회귀와 OWASP ASVS/WSTG의 권한·입력 검증·출력 인코딩을 기준으로 고른다. 기술별 확인은 해당 공식 문서의 계약을 기준으로 한다. 이 저장소에서는 Bean Validation `@NotBlank`/`@Size`, CVSS v3.1, React의 URL 스킴, GitHub Actions checkout ref가 그 계약이다.
-
-실행하지 않은 종류는 폴더를 만들지 않고, 성공으로 보고하지 않는다. 종류는 `api`, `unit`, `integration`, `e2e`, `security`, `performance`, `regression`만 쓴다.
-
-## 교차 검증
-
-도구 하나의 필수 검사가 실패하거나, 도구가 오류이거나, 검증이 빠지면 완료로 처리하지 않는다. 미실행은 PASS가 아니다.
-
-| 종류 | 도구 A | 도구 B | 판정 |
+| 영역 폴더 | 1차(목표) | 2차(목표) | 현재 저장소 실행 경로 |
 | --- | --- | --- | --- |
-| unit | `python -m pytest` (`ai/tests/test_parser.py`, `data/tests/test_transform.py`) | `qa/cross/direct_checks.py`가 같은 함수를 pytest 없이 호출 | 양쪽 상태가 같아야 한다. 다르면 ERROR |
-| api 공통 구간 | `back`에서 `./gradlew test` (MockMvc) | `qa/cross/api_rules.py`의 `@NotBlank`/`@Size(min=3,max=80000)` | 빈 manifest 거절만 양쪽이 실행한다 |
-| api HTTP 전용 | Gradle | 소켓을 열지 않음 | 최종 NOT_RUN. PASS로 올리지 않는다 |
-| security 화면·설정 | `qa/cross/security_scan.py` | `qa/cross/ui_checks.mjs` (node) | 양쪽이 같아야 한다 |
-| security 동작·나머지 정적 | `direct_checks.py` 또는 `security_scan.py` | `qa/cross/rg_rules.py`가 호출하는 `rg` | 양쪽이 같아야 한다 |
-| regression | `npx tsc --noEmit` | `npx vite build` | 둘 다 종료 코드 0이어야 PASS |
+| `01_unit_integration` | JUnit / pytest / Vitest | Testcontainers 또는 API/DB 블랙박스 | pytest + `qa/cross/direct_checks.py`; Java는 Gradle MockMvc |
+| `02_web_api` | Playwright | Schemathesis/Postman CLI | Gradle MockMvc + `qa/cross/api_rules.py` (HTTP 소켓 없음 → 해당 TC는 PASS 금지) |
+| `03_security_quality` | CodeQL | Semgrep | `security_scan.py` + `ui_checks.mjs`/`rg_rules.py` (정적·소스). CodeQL/Semgrep 미도입은 RISK |
+| `04_infra_deploy` | Compose healthcheck | curl 스모크 (k6는 격리 환경만) | `compose_checks.py` + `http_smoke.py`; front는 tsc+vite |
 
-API 도구 B는 HTTP 상태 코드를 관찰하지 않는다. 이 한계는 매 실행마다 MEDIUM RISK로 남긴다. Gradle만 통과한 HTTP 전용 TC는 PASS가 아니다.
+- 같은 명령을 두 번 실행한 것을 교차 검증으로 인정하지 않는다.
+- 필수 경로가 하나뿐이면 이유·대체 계획을 `risk.md`에 남기고 최종 PASS로 올리지 않는다.
+- CodeQL/Semgrep은 UI·API·배포 동작 검사를 대체하지 않는다.
 
-## 기록
+## 2. 원자적 TC
 
-경로: `qa/reports/{test-type}/{YYYY-MM-DD}/`
+변경 파일·호출 흐름부터 확인한다. 전체 프로젝트를 매번 AI 문맥에 넣지 않는다.
+입력·경계·분기·출력·상태·권한·외부장애·보안·회귀를 구분된 TC로 분해한다.
+기대 결과는 독립적으로 PASS/FAIL 판단 가능해야 한다. “정상 동작 확인” 금지.
+근거 없는 예상은 RISK.
 
-각 날짜 폴더의 파일은 `pass.md`, `fail.md`, `risk.md`, `results.tsv`다. TSV는 UTF-8 BOM으로 만들고 탭으로 열을 나눈다.
+필수 항목: `TC_ID`, `FEATURE_ID`, `REQUIREMENT_ID`, `AREA`, `SECTION`, `SCENARIO`,
+`PRECONDITION`, `INPUT`, `STEPS`, `EXPECTED_RESULT`, `TOOL_A`, `COMMAND_A`,
+`TOOL_B`, `COMMAND_B`, `CODE_FILE`, `FUNCTION`, `RISK_LEVEL`(필요 시).
 
-헤더:
+## 3. 작업 루프 (완료 조건)
 
-`RUN_ID	TC_ID	EXECUTED_AT	FEATURE	TEST_TYPE	TOOL_A	TOOL_A_RESULT	TOOL_B	TOOL_B_RESULT	FINAL_STATUS	GIT_COMMIT	FILE	FUNCTION	LINE	ISSUE_ID	RISK_ID	EVIDENCE`
+1. 변경 전 영향 TC 매핑
+2. 신규 TC는 실행 전에 `qa/input/testcases.tsv`에 등록
+3. 테스트 코드·픽스처·`qa/config/test_map.json` 연결
+4. 1차·2차 실제 실행, 로그·증거 수집
+5. FAIL/RISK는 **코드 재수정 전** 보고서·이력 선기록 후 보고
+6. 수정 후 동일 두 경로 재검증 + 회귀
+7. 필수 TC·이중 증거 없으면 “완료” 금지
+8. PR/배포 전 전체 회귀; CI 실패·OPEN HIGH/CRITICAL이면 병합 차단
 
-상태 값은 `PASS`, `FAIL`, `BLOCKED`, `ERROR`, `NOT_RUN`, `SKIPPED`만 쓴다.
+## 4. 폴더·파일 (영어 이름)
 
-코드 위치는 도구가 확인한 값만 적는다. 확인하지 못하면 `UNKNOWN`이다. Git 커밋은 실행 시점의 HEAD다. 작업 트리가 더럽으면 `+dirty`를 붙인다.
+설명·원인·보고 본문 = 한국어. 경로·탭·컬럼·TC ID = 영어. 날짜 = Asia/Seoul `YYYY-MM-DD`.
 
-`pass.md`에는 검증 목적, 도구, 기대 결과, 실제 결과, 근거를 짧게 적는다.
+```
+qa/
+├── master_test_sheet.xlsx
+├── input/testcases.tsv
+├── config/test_map.json
+├── history/execution_log.tsv
+└── results/{area}/{section}/{YYYY-MM-DD}/
+    ├── test_sheet.xlsx
+    ├── pass.md
+    ├── fail.md
+    ├── risk.md
+    └── results.tsv
+```
 
-`fail.md`에는 입력값, 오류 메시지, 재현 방법, 기대·실제 결과, 파일·함수·줄, 원인, 수정 위치, 재검증을 적는다. 아직 고치지 않았으면 수정 위치는 UNKNOWN이다.
+- `master_test_sheet.xlsx`: qa 루트 유일한 전체 현황 Excel
+- `results.tsv` / `execution_log.tsv`: RUN_ID별 **append-only** (기존 이력 삭제·덮어쓰기 금지)
+- 조회용 Excel/스냅샷 MD는 당일 최신으로 갱신 가능
+- 실제 실행된 영역·섹션만 날짜 폴더 생성
 
-`risk.md`에는 테스트 통과 여부와 별도로 심각도, 발생 가능성, 영향, 권장 조치, 처리 상태를 적는다. 심각도는 `CRITICAL`, `HIGH`, `MEDIUM`, `LOW`다.
+## 5. 상태·증거·차단
 
-## 완료와 병합
+실행 상태: `PASS | FAIL | BLOCKED | ERROR | NOT_RUN | SKIPPED`
+**RISK는 별도 위험 등록부** (실행 상태와 분리).
 
-아래이면 `qa/run.py`가 종료 코드 1이며, 작업을 완료로 보거나 병합하지 않는다.
+- PASS: 두 필수 경로 실행 + 단언 통과 + 증거
+- FAIL: 필수 단언 실패
+- BLOCKED/ERROR/NOT_RUN/SKIPPED: 정의대로. SKIPPED·미실행을 PASS로 계산하지 않음
 
-- 필수 TC의 최종 상태가 FAIL, ERROR, BLOCKED, NOT_RUN이다.
-- 이번 RUN에 OPEN인 HIGH 또는 CRITICAL RISK가 있다.
+증거: RUN_ID, TC_ID, FEATURE_ID, KST 시각, TOOL_A/B, 명령, 각 결과, 최종상태,
+기대/실제, 로그 경로, Git SHA, 파일·함수·줄(확인된 값만), ISSUE/RISK ID.
+비밀·토큰·개인정보 로그 금지.
 
-MEDIUM 이하 RISK만 있고 필수 TC가 모두 PASS이면 종료 코드 0이다. 이번 게이트의 알려진 제품 결함 TC는 필수 FAIL이라, 결함이 남아 있는 동안 CI `qa-gate`는 실패한다.
+## 6. 자동화·토큰
 
-FAIL과 RISK 기록 전에 그 결함을 고치는 제품 수정을 하지 않는다.
+- Agent 1 + Skill 1 (`tsv-qa`). 실행·판정·리포트는 스크립트.
+- `test_map.json`에 TC별 1·2차 명령 고정. AI가 매회 명령 추측 금지.
+- 로컬: `scripts/watch_qa.py` / `qa/hooks/stop_gate.py` (디바운스).
+- CI: push/PR → `qa-gate`. 무거운 E2E·부하는 PR/배포·격리 환경만.
+- AI는 TC 설계·복잡 영향·원인 불명 FAIL/RISK에만.
+- Hook/CI 미검증 시 “매 작업 자동화 완료” 주장 금지.
 
-## 이 저장소에서 아직 실행하지 않는 것
+## 7. 보고·완료
 
-`integration`, `e2e`, `performance`는 이 러너가 띄우지 않는다. 라이브 NVD, 부하, p95, 100동시성, 브라우저 클릭도 이 러너의 PASS가 아니다. 과거 관찰은 `qa/results/MD-*.tsv`에만 있다.
+보고: 변경 기능, 신규·수정 TC 수, 영역별 개수, 도구별 상태, 상태 집계,
+미해결 RISK, 경로, RUN_ID (한국어).
 
-로컬 스탬프 `qa/reports/.last_run`는 이력 파일이 아니다. Stop hook이 제품 소스가 이 스탬프보다 새로운지 볼 때 쓴다. 보고서를 만든 뒤에도 HIGH가 열려 있으면 병합은 CI와 이 정책이 막는다. hook은 이미 기록된 HIGH 때문에 같은 턴을 무한히 다시 열지 않는다.
+기능 완료 필수: (1) TC 등록 (2) test_map·테스트코드 연결 (3) 이중 실행 증거
+(4) 필수 통과 (5) 5개 결과파일 + master Excel (6) OPEN HIGH/CRITICAL 없음.
+미달 시 미완료로 명시.

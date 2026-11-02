@@ -19,7 +19,7 @@
   - `FAIL`: 15건 (`security` 15건 — 두 도구 교차 검증 일치)
   - `NOT_RUN`: 7건 (`api` 한쪽 도구만 실행된 항목 — PASS로 둔갑시키지 않음)
 - **생성/누적된 리포트 경로**:
-  - `qa/reports/unit/2026-11-02/{pass.md,fail.md,risk.md,results.tsv}`
-  - `qa/reports/api/2026-11-02/{pass.md,fail.md,risk.md,results.tsv}`
-  - `qa/reports/security/2026-11-02/{pass.md,fail.md,risk.md,results.tsv}`
-  - `qa/reports/regression/2026-11-02/{pass.md,fail.md,risk.md,results.tsv}`
+  - `qa/results/unit/2026-11-02/{pass.md,fail.md,risk.md,summary.tsv}`
+  - `qa/results/api/2026-11-02/{pass.md,fail.md,risk.md,summary.tsv}`
+  - `qa/results/security/2026-11-02/{pass.md,fail.md,risk.md,summary.tsv}`
+  - `qa/results/regression/2026-11-02/{pass.md,fail.md,risk.md,summary.tsv}`

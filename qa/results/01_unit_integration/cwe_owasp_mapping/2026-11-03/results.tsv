@@ -1,0 +1,2 @@
+﻿RUN_ID	TC_ID	FEATURE_ID	AREA	SECTION	TOOL_A	TOOL_A_RESULT	TOOL_B	TOOL_B_RESULT	FINAL_STATUS	EXPECTED	ACTUAL	EVIDENCE	GIT_COMMIT	FILE	FUNCTION	LINE	ISSUE_ID	RISK_ID	EXECUTED_AT
+RUN-20261103-034422	UNIT-CWE	CWE·OWASP 매핑	01_unit_integration	cwe_owasp_mapping	pytest	PASS	direct_checks.py	PASS	PASS	테스트 통과	A:통과 / B:79, None, A05, OTHER	A[PASS] pytest test_cwe_and_owasp: junit 통과 || B[PASS] cwe_to_number, owasp_code 직접 호출	7678a457b316+dirty	data/etl/transform.py	cwe_to_number	35	NONE	NONE	2026-11-03T03:44:22+09:00

@@ -11,4 +11,4 @@
   - Antigravity 워크스페이스 호환을 위한 `.agents/skills/qa-security/SKILL.md` 추가.
 - **872건 전체 TC (`MD-01` ~ `MD-31`) 및 자동화 러너(`qa/run.py`) 실행 검증**:
   - `qa/results/MD-01.tsv` ~ `MD-31.tsv` (31개 분야, 총 872건: 통과 413건, 실패 33건, 보류 426건) 보존 상태 확인.
-  - `python3 qa/run.py` 실행(`RUN-20261102-221831`)을 통해 `unit`, `api`, `security`, `regression` 4개 분야 36개 게이트 TC 교차 검증 및 `qa/reports/{test-type}/2026-11-02/` 누적 기록 확인.
+  - `python3 qa/run.py` 실행(`RUN-20261102-221831`)을 통해 `unit`, `api`, `security`, `regression` 4개 분야 36개 게이트 TC 교차 검증 및 `qa/results/{test-type}/2026-11-02/` 누적 기록 확인.

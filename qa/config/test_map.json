@@ -1,0 +1,43 @@
+{
+  "cases": {
+    "UNIT-PKG": {
+      "a": [
+        "python3",
+        "-m",
+        "pytest",
+        "-q",
+        "ai/tests/test_parser.py::test_package_json"
+      ],
+      "b": [
+        "python3",
+        "qa/cross/direct_checks.py"
+      ],
+      "label_a": "pytest",
+      "label_b": "direct_checks.py"
+    },
+    "INFRA-COMPOSE": {
+      "a": [
+        "python3",
+        "qa/cross/compose_checks.py"
+      ],
+      "b": [
+        "python3",
+        "qa/cross/dockerfile_checks.py"
+      ],
+      "label_a": "compose_checks.py",
+      "label_b": "dockerfile_checks.py"
+    },
+    "INFRA-SMOKE": {
+      "a": [
+        "python3",
+        "qa/cross/http_smoke.py"
+      ],
+      "b": [
+        "python3",
+        "qa/cross/compose_checks.py"
+      ],
+      "label_a": "http_smoke.py",
+      "label_b": "compose_checks.py"
+    }
+  }
+}

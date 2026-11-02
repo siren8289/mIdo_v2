@@ -1,0 +1,2 @@
+﻿RUN_ID	TC_ID	FEATURE_ID	AREA	SECTION	TOOL_A	TOOL_A_RESULT	TOOL_B	TOOL_B_RESULT	FINAL_STATUS	EXPECTED	ACTUAL	EVIDENCE	GIT_COMMIT	FILE	FUNCTION	LINE	ISSUE_ID	RISK_ID	EXECUTED_AT
+RUN-20261103-034422	SEC-CAP	의존성 50개 절단	03_security_quality	dependency_cap	direct_checks.py	FAIL	rg	FAIL	FAIL	51개면 51개를 반환하거나 잘림을 결과에 알림	A:type=package.json count=50 return=tuple / B:슬라이스만 있음	A[FAIL] parse_dependencies 51개 || B[FAIL] rg -A 12 def parse_dependencies	7678a457b316+dirty	ai/src/parser/dependency.py	parse_dependencies	96	MD-09-067	RISK-SEC-CAP	2026-11-03T03:44:22+09:00

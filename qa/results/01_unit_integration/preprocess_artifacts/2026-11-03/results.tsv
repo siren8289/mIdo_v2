@@ -1,0 +1,2 @@
+﻿RUN_ID	TC_ID	FEATURE_ID	AREA	SECTION	TOOL_A	TOOL_A_RESULT	TOOL_B	TOOL_B_RESULT	FINAL_STATUS	EXPECTED	ACTUAL	EVIDENCE	GIT_COMMIT	FILE	FUNCTION	LINE	ISSUE_ID	RISK_ID	EXECUTED_AT
+RUN-20261103-034422	UNIT-FILES	전처리 산출물	01_unit_integration	preprocess_artifacts	pytest	PASS	direct_checks.py	PASS	PASS	테스트 통과	A:통과 / B:있음	A[PASS] pytest test_processed_files_exist: junit 통과 || B[PASS] data/processed 파일 존재 확인	7678a457b316+dirty	data/processed	UNKNOWN	UNKNOWN	NONE	NONE	2026-11-03T03:44:22+09:00

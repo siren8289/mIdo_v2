@@ -1,0 +1,2 @@
+﻿RUN_ID	TC_ID	FEATURE_ID	AREA	SECTION	TOOL_A	TOOL_A_RESULT	TOOL_B	TOOL_B_RESULT	FINAL_STATUS	EXPECTED	ACTUAL	EVIDENCE	GIT_COMMIT	FILE	FUNCTION	LINE	ISSUE_ID	RISK_ID	EXECUTED_AT
+RUN-20261103-034422	SEC-REACT-KEY	결과 카드 키	03_security_quality	result_card_keys	security_scan.py	FAIL	ui_checks.mjs	FAIL	FAIL	같은 vuln_id가 겹쳐도 키가 충돌하지 않음	A:key가 vuln_id뿐이라 중복 시 React 키가 충돌 / B:key가 vuln_id뿐	A[FAIL] key= 원문 || B[FAIL] node가 key 속성을 읽음	7678a457b316+dirty	front/src/pages/ResultPage.tsx	ResultPage	63	MD-03-026	RISK-SEC-REACT-KEY	2026-11-03T03:44:22+09:00
