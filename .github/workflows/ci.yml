@@ -68,3 +68,31 @@ jobs:
           cache-dependency-path: data/requirements.txt
       - run: pip install -r data/requirements.txt
       - run: python -m pytest data/tests -q
+
+  qa-gate:
+    name: QA gate (cross-check + report)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+      - uses: gradle/actions/setup-gradle@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: front/package-lock.json
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install ripgrep
+        run: sudo apt-get update && sudo apt-get install -y ripgrep
+      - name: Python dependencies for the gate
+        run: pip install -r data/requirements.txt
+      - name: Front dependencies
+        working-directory: front
+        run: npm ci
+      - name: Cross-check and write qa/reports
+        run: python3 qa/run.py
