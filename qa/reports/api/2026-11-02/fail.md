@@ -1,0 +1,8 @@
+# api FAIL
+
+## RUN-20261102-202327
+
+이번 RUN의 FAIL/ERROR는 없다.
+## RUN-20261102-202520
+
+이번 RUN의 FAIL/ERROR는 없다.
