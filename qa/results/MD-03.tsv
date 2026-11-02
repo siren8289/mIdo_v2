@@ -1,0 +1,40 @@
+id	verdict	actual	expected
+MD-03-001	통과	loading	불러오는 중... 표시
+MD-03-002	통과	MIDO 의존성 분석 OWASP Top 10  package.json · 라이브러리 2개  취약점 1건  빠른 조치 AI 설명 (기본 문장)  설명 문장  CRITICAL KEV CVE-2021-44228  log4j-core@2.14.1  Remote code execution second line  CVSS 9.8 ·	파일타입, 의존성·취약점 숫자 표시
+MD-03-003	통과	404	오류 메시지 표시
+MD-03-004	통과	500	오류 메시지 표시
+MD-03-005	통과	즉시 조치	즉시 조치 빨강 배지
+MD-03-006	통과	빠른 조치	빠른 조치 주황 배지
+MD-03-007	통과	계획 후 조치	계획 후 조치 노랑 배지
+MD-03-008	통과	관찰	관찰 회색 배지
+MD-03-009	통과	문제 없음	문제 없음 초록 배지
+MD-03-010	실패	unexpected -> 문제 없음으로 오판	현재 코드의 none fallback 동작 확인 및 오판정 방지 개선 검토
+MD-03-011	통과	kev 0	KEV 경고 문구 미표시
+MD-03-012	통과	kev 2	실제 악용 2건 표시
+MD-03-013	통과	gemini	Gemini 표시
+MD-03-014	통과	basic	기본 문장 표시
+MD-03-015	통과	empty findings	안전 보장 아님 문구 표시
+MD-03-016	통과	missing findings	빈 목록 안내 표시
+MD-03-017	통과	MIDO 의존성 분석 OWASP Top 10  package.json · 라이브러리 2개  취약점 1건  빠른 조치 AI 설명 (기본 문장)  설명 문장  확인된 취약점이 없습니다. 안전하다는 뜻은 아닙니다.  ← 	빈 목록 안내 및 렌더 오류 없음
+MD-03-018	통과	CVSS 9.8 · EPSS 53.20% · ML 악용 위험 71.0% ·A08 Integrity · DL 추정 HIGH	CVSS 9.8, EPSS 53.20%, ML 71.0% 표시
+MD-03-019	통과	dl	DL 추정 HIGH 표시
+MD-03-020	통과	fixed	고친 버전: 2.17.1 이상
+MD-03-021	통과	null fixed hidden	패치 버전 구간 비표시
+MD-03-022	통과	{"target":"_blank","rel":"noreferrer"}	새 창 rel=noreferrer 링크 렌더
+MD-03-023	실패	href=javascript:alert(1) dialogs=0	위험 URL의 활성화를 차단/안전 검증
+MD-03-024	통과	kev badge	취약점 카드 KEV 표시
+MD-03-025	실패	summary white-space=normal	줄바꿈·오버플로 없이 노출
+MD-03-026	실패	cards=2 warn=true msgs=%cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold|Warning: Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change	React key 중복 경고·누락 여부 검사
+MD-03-027	통과	http://127.0.0.1:5173/	홈으로 이동
+MD-03-028	통과	render ok	누락·null 필드에서도 렌더 오류 없이 표시 가능한 필드만 노출
+MD-03-029	통과	render ok	누락·null 필드에서도 렌더 오류 없이 표시 가능한 필드만 노출
+MD-03-030	통과	render ok	누락·null 필드에서도 렌더 오류 없이 표시 가능한 필드만 노출
+MD-03-031	통과	render ok	누락·null 필드에서도 렌더 오류 없이 표시 가능한 필드만 노출
+MD-03-032	통과	render ok	누락·null 필드에서도 렌더 오류 없이 표시 가능한 필드만 노출
+MD-03-033	통과	render ok	누락·null 필드에서도 렌더 오류 없이 표시 가능한 필드만 노출
+MD-03-034	통과	render ok	누락·null 필드에서도 렌더 오류 없이 표시 가능한 필드만 노출
+MD-03-035	통과	render ok	누락·null 필드에서도 렌더 오류 없이 표시 가능한 필드만 노출
+MD-03-036	통과	render ok	누락·null 필드에서도 렌더 오류 없이 표시 가능한 필드만 노출
+MD-03-037	통과	render ok	누락·null 필드에서도 렌더 오류 없이 표시 가능한 필드만 노출
+MD-03-038	통과	render ok	누락·null 필드에서도 렌더 오류 없이 표시 가능한 필드만 노출
+MD-03-039	통과	render ok	누락·null 필드에서도 렌더 오류 없이 표시 가능한 필드만 노출
